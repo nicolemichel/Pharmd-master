@@ -1,0 +1,222 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="grid-container">
+    @if (Program.UserDetails.UserID == 0)
+    {
+        <div class="nav">
+            <div class="logo">
+                <a href="/Index" class="navLinks">
+                    <img src="~/images/PhramdLogo.png" alt="PhramdLogo">
+                </a>
+            </div>
+            <div class="about">
+                <a href="#about" class="navLinks">About</a>
+            </div>
+            <div class="contact">
+                <a href="#contact" class="navLinks">Contact</a>
+            </div>
+            <div class="account">
+                <a href="#" class="navLinks"><i class="fas fa-user-circle"></i></a>
+                <div class="accountContent">
+                    <br />
+                    <a href="#" onclick="document.getElementById('logIn').style.display='block'" class="navLinks">Login</a><br />
+                    <a href="#" onclick="document.getElementById('register').style.display='block'" class="navLinks">Sign Up</a>
+                </div>
+            </div>
+        </div>
+        <div class="slider-div">
+            <div class="slider">
+                slider
+            </div>
+        </div>
+        <div id="about" class="about-div">
+            <div class="left">
+                Test Left
+            </div>
+            <div class="right">
+                Test Right
+            </div>
+        </div>
+        <div id="contact" class="contact-div">contact</div>
+    }
+    @if (Program.UserDetails.UserID != 0)
+    {
+        <div class="nav">
+            <div class="logo">
+                <a href="/Index" class="navLinks">
+                    <img src="~/images/PhramdLogo.png" alt="PhramdLogo">
+                </a>
+            </div>
+            <div class="about">
+                <a href="#" class="navLinks">About</a>
+            </div>
+            <div class="contact">
+                <a href="#" class="navLinks">Contact</a>
+            </div>
+            <div class="uname">
+                <p>
+                    <a href="#" class="navLinks"><i class="fas fa-user-circle"></i></a><br />
+                    Hello <b>@Program.UserDetails.Username!</b>
+                </p>
+                <div class="unameContetnt">
+                    <form method="post" asp-page-handler="Logout">
+                        <input type="submit" class="navLinks" name="Logout" value="Logout" />
+                    </form>
+                    <a href="#accountSettings" class="navLinks">Settings</a>
+                </div>
+            </div>
+        </div>
+        <div class="accountSettings-div">
+            <div id="accountSettings" class="accountSettings">
+                <h2>Account Settings</h2>
+                <h3>Calendar</h3>
+                <hr>
+                <div id="showForm" class="calImages">
+                    <a class="gmailCal" href="#"><img src="~/images/google-calendar-logo.png" alt="google cal image" /></a>
+                    <a class="appleCal" href="#"><img src="~/images/iOS-Calendar-icon.png" alt="apple cal image" /></a>
+                    <a class="microCal" href="#"><img src="~/images/Microsoft_Outlook_2013_logo.svg_-250x250.png" alt="microsoft cal image" /></a>
+                </div>
+                <form class="hiddenGmail" method="post" asp-page-handler="CalendarGmail">
+                    <input type="text" placeholder="Enter Email" value="@Program.UserDetails.emails" name="email">
+                    <button type="submit">Save Gmail</button>
+                    <button method="post" asp-page-handler="CalendarRemoveGmail" type="submit">Remove</button>
+                </form>
+                <form class="hiddenApple" method="post" asp-page-handler="CalendarApple">
+                    <input type="text" placeholder="Enter Email" value="@Program.UserDetails.emailsA" name="email">
+                    <button type="submit">Save Apple</button>
+                    <button method="post" asp-page-handler="CalendarRemoveApple" type="submit">Remove</button>
+                </form>
+                <form class="hiddenMicro" method="post" asp-page-handler="CalendarMicro">
+                    <input type="text" placeholder="Enter Email" value="@Program.UserDetails.emailsM" name="email">
+                    <button type="submit">Save Microsoft</button>
+                    <button method="post" asp-page-handler="CalendarRemoveMicro" type="submit">Remove</button>
+                </form>
+                <br />
+                <br />
+                <h3>Photos</h3>
+                <hr>
+                <div id="showForm" class="calImages">
+                    <a class="gPhoto" href="#"><img src="~/images/google-photos-icon-250x250.png" alt="google photos" /></a>
+                </div>
+                <form class="hiddenGPhoto" method="post" asp-page-handler="GooglePhotos">
+                    <input type="text" placeholder="Enter Email" value="@Program.UserDetails.GPhoto" name="email">
+                    <button type="submit">Save Google Photos</button>
+                    <button method="post" asp-page-handler="PhotoRemoveGmail" type="submit">Remove</button>
+                </form>
+                <p>Weather</p>
+                <hr>
+                <form method="post" asp-page-handler="Weather">
+                    <select required class="drop" name="Country" @Model.selCountry>
+                        <option value="">Select A Country</option>
+                        <option value="CA">Canada</option>
+                    </select>
+                    <select required class="drop" name="City" @Model.selCity>
+                        <option value="">Select A City</option>
+                        <option value="toronto">Toronto</option>
+                        <option value="ottawa">Ottawa</option>
+                        <option value="montreal">Montreal</option>
+                        <option value="gatineau">Gatineau</option>
+                        <option value="quebec">Quebec City</option>
+                        <option value="london">London</option>
+                        <option value="sarnia">Sarnia</option>
+                        <option value="windsor">Windsor</option>
+                        <option value="kitchener">Kitchener</option>
+                        <option value="kingston">Kingston</option>
+                        <option value="oshawa">Oshawa</option>
+                        <option value="hamilton">Hamilton</option>
+                        <option value="guelph">Guelph</option>
+                    </select>
+                    <select required class="drop" name="Unit" @Model.selUnit>
+                        <option value="">Select A Unit of Measurement</option>
+                        <option value="metric">Metric</option>
+                        <option value="imperial">Imperial</option>
+                        <option value="kelvin">Kelvin</option>
+                    </select>
+                    <input type="submit" value="Get the Weather" />
+                </form>
+                <p>News</p>
+                <hr>
+                <form method="post" asp-page-handler="News">
+                    <select required class="drop" name="Coun" @Model.selCoun>
+                        <option value="">Select A Country</option>
+                        <option value="ca">Canada</option>
+                        <option value="us">United States</option>
+                    </select>
+                    <select required class="drop" name="Articles" @Model.numOfArticles>
+                        <option value="">Amount of Articles Wanted</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                    </select>
+                    <select required class="drop" name="Time">
+                        <option value="">Time To Read Headlines</option>
+                        <option value="10000">10 seconds</option>
+                        <option value="15000">15 seconds</option>
+                        <option value="20000">20 seconds</option>
+                    </select>
+                    <input type="submit" value="Get the News" />
+                </form>
+
+
+            </div>
+        </div>
+    }
+    <div class="footer">
+        <div class="f1">
+            <img src="~/images/VSlogo.svg.png" alt="Visual Studio" />
+        </div>
+        <div class="f2">
+            <img src="~/images/dotnetcoreLogo.png" alt=".Net Core" />
+        </div>
+        <div class="f3">
+            <img src="~/images/csharpLogo.png" alt="C#" />
+        </div>
+        <div class="f4">
+            <p>&copy; 2018 - PHRAMD</p>
+        </div>
+        <div class="f5">
+            <img src="~/images/sqlserverLogo.png" alt="SQL Server" />
+        </div>
+        <div class="f6">
+            <img src="~/images/HTML5Badge.png" alt="HTML 5" />
+        </div>
+        <div class="f7">
+            <img src="~/images/CSS3Logo.png" alt="CSS 3" />
+        </div>
+    </div>
+    <div id="logIn" class="modal">
+        <form class="modalContent animate" method="post" asp-page-handler="Login">
+            <div class="container">
+                <h1>Login</h1>
+                <hr>
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <button type="submit">Login</button>
+                <button type="button" onclick="document.getElementById('logIn').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div id="register" class="modal">
+        <form class="modalContent animate" method="post" asp-page-handler="NewUser">
+            <div class="container">
+                <h1>Sign Up</h1>
+                <hr>
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" required>
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <button type="submit">Register</button>
+                <button type="button" onclick="document.getElementById('register').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+

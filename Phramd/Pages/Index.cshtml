@@ -1,0 +1,330 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="grid-container">
+    @if (Program.UserDetails.UserID == 0)
+    {
+        <div class="nav">
+            <div class="navLogo">
+                <a href="/Index" class="navLinks">
+                    <img src="~/images/PhramdLogo.png" alt="PhramdLogo">
+                </a>
+            </div>
+            <div class="navAbout">
+                <a href="#about" class="navLinks">Board Info</a>
+            </div>
+            <div class="navContact">
+                <a href="#contact" class="navLinks">Contact</a>
+            </div>
+            <div class="navAccount">
+                <a href="#" class="navLinks"><i class="fas fa-user-circle"></i></a>
+                <div class="accountContent">
+                    <br />
+                    <a href="#" onclick="document.getElementById('logIn').style.display='block'" class="navLinks">Login</a><br />
+                    <a href="#" onclick="document.getElementById('register').style.display='block'" class="navLinks">Sign Up</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="slider-div">
+            <div class="slider">
+                <div>
+                    <img class="mySlides" src="~/images/PhramdSliderReal.png">
+                    <img class="mySlides" src="~/images/PhramdScreens.png">
+                    <img class="mySlides" src="~/images/CalemdarSlider.png">
+                    <img class="mySlides" src="~/images/PhotosSlider.png">
+                    <img class="mySlides" src="~/images/NewsSlider.png">
+                    <img class="mySlides" src="~/images/WeatherSlider.png">
+                </div>
+            </div>
+        </div>
+
+        <div id="about" class="about-div">
+            <div class="boardInfo">
+                <h2>Board Info</h2>
+            </div>
+            <div class="borderAbout"></div>
+            <div class="left">
+                <h3>Digital Photo Frame</h3>
+                <p>
+                    Authorize your favorite photo sharing service such as Google Photos and let Phramd be your digital art display!
+                    Configure it to show your latest photos, or pull from a specific album. Have it change the photo at any interval you
+                    choose. There's no separate albums to manage, or SD cards to load. Phramd is a wifi connected, smart picture frame!
+                </p>
+                <h3>Smart Weather Station</h3>
+                <p>
+                    The weather can change at a moments notice! Set your location and your dashboard will always display the current
+                    weather conditions and 4 day forecast. Phramd is your digital weather station!
+                </p>
+                <h3>RSS News Feeds</h3>
+                <p>Phramd pulls the most popular RSS news feeds from ABC, BBC, CNN and many more!</p>
+            </div>
+            <div class="right">
+                <h3>Simple Configuration</h3>
+                <p>
+                    The Phramd web app is configured through a simple web-based interface accessible from any laptop, tablet
+                    or smartphone.
+                </p>
+                <h3>Flexible Options</h3>
+                <p>
+                    Don't want to see the weather forecast? Don't want to see calendar events?
+                    No problem! Configure it with a click in the settings section.
+                </p>
+                <h3>Zero Maintenance</h3>
+                <p>
+                    Once configured, there's no SD cards to load, no additional calendars to update and no photos to upload.
+                    Phramd is a perfect smart home dashboard, always displaying your latest and relevant content!
+                </p>
+            </div>
+        </div>
+
+        <div id="contact" class="contact-div">
+            <h2>Contact</h2>
+            <div class="border"></div>
+            <form class="contactForm" action="/" method="post">
+                <input type="text" class="contactText" placeholder="Your Name" />
+                <input type="text" class="contactText" placeholder="Your Email" />
+                <textarea class="contactText" placeholder="Your Message"></textarea>
+                <button type="submit" class="contactFormBtn">Send</button>
+            </form>
+        </div>
+    }
+
+    @if (Program.UserDetails.UserID != 0)
+    {
+        <div class="nav">
+            <div class="navLogo">
+                <a href="/Index" class="navLinks">
+                    <img src="~/images/PhramdLogo.png" alt="PhramdLogo">
+                </a>
+            </div>
+            <div class="settings">
+                <a href="/Index" class="navLinks" onclick="userFunction()">User Settings</a>
+            </div>
+            <div class="navContact">
+                <a href="#contact" class="navLinks">Contact</a>
+            </div>
+            <div class="uname">
+                <p>
+                    <a href="#" class="navLinks"><i class="fas fa-user-circle"></i></a><br />
+                    Hello <b>@Program.UserDetails.Username!</b>
+                </p>
+                <div class="unameContetnt">
+                    <form method="post" asp-page-handler="Logout">
+                        <input type="submit" class="navLinks" name="Logout" value="Logout" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="accountSet" class="accountSettings-div">
+            <div id="accountSettings" class="accountSettings">
+                <h2>User Settings</h2>
+                <h3>Calendar</h3>
+                <hr>
+                <div id="showForm" class="calImages">
+                    <a id="gmailCal" class="calendarS" href="#"><img src="~/images/google-calendar-logo.png" alt="google cal image" /></a>
+                    <a id="appleCal" class="calendarS" href="#"><img src="~/images/iOS-Calendar-icon.png" alt="apple cal image" /></a>
+                    <a id="microCal" class="calendarS" href="#"><img src="~/images/Microsoft_Outlook_2013_logo.svg_-250x250.png" alt="microsoft cal image" /></a>
+                </div>
+                <form id="hiddenGmail" class="hide" method="post" asp-page-handler="CalendarGmail">
+                    <input type="text" placeholder="Enter Gmail" value="@Program.UserDetails.emails" name="email">
+                    <button type="submit">Save Gmail</button>
+                    <button class="removeButton" method="post" asp-page-handler="CalendarRemoveGmail" type="submit">Remove</button>
+                </form>
+                <form id="hiddenApple" class="hide" method="post" asp-page-handler="CalendarApple">
+                    <input type="text" placeholder="Enter iCloud" value="@Program.UserDetails.emailsA" name="email">
+                    <button type="submit">Save Apple</button>
+                    <button class="removeButton" method="post" asp-page-handler="CalendarRemoveApple" type="submit">Remove</button>
+                </form>
+                <form id="hiddenMicro" class="hide" method="post" asp-page-handler="CalendarMicro">
+                    <input type="text" placeholder="Enter Outlook" value="@Program.UserDetails.emailsM" name="email">
+                    <button type="submit">Save Microsoft</button>
+                    <button class="removeButton" method="post" asp-page-handler="CalendarRemoveMicro" type="submit">Remove</button>
+                </form>
+                <br />
+                <br />
+                <h3>Photos</h3>
+                <hr>
+                <div id="showForm" class="calImages">
+                    <a id="gPhoto" class="photoS" href="#"><img src="~/images/google-photos-icon-250x250.png" alt="google photos" /></a>
+                </div>
+                <form id="hiddenGPhoto" class="hide" method="post" asp-page-handler="GooglePhotos">
+                    <input type="text" placeholder="Enter Email" value="@Program.UserDetails.GPhoto" name="email">
+                    <button type="submit">Save Google Photos</button>
+                    <button class="removeButton" method="post" asp-page-handler="PhotoRemoveGmail" type="submit">Remove</button>
+                </form>
+                <br />
+                <br />
+                <h3>Weather</h3>
+                <hr>
+                <form method="post" asp-page-handler="Weather">
+                    <select required class="drop" name="Country" @Model.selCountry>
+                        <option value="">Select A Country</option>
+                        <option value="CA">Canada</option>
+                    </select>
+                    <select required class="drop" name="City" @Model.selCity>
+                        <option value="">Select A City</option>
+                        <option value="toronto">Toronto</option>
+                        <option value="ottawa">Ottawa</option>
+                        <option value="montreal">Montreal</option>
+                        <option value="gatineau">Gatineau</option>
+                        <option value="quebec">Quebec City</option>
+                        <option value="london">London</option>
+                        <option value="sarnia">Sarnia</option>
+                        <option value="windsor">Windsor</option>
+                        <option value="kitchener">Kitchener</option>
+                        <option value="kingston">Kingston</option>
+                        <option value="oshawa">Oshawa</option>
+                        <option value="hamilton">Hamilton</option>
+                        <option value="guelph">Guelph</option>
+                    </select>
+                    <select required class="drop" name="Unit" @Model.selUnit>
+                        <option value="">Select A Unit of Measurement</option>
+                        <option value="metric">Metric</option>
+                        <option value="imperial">Imperial</option>
+                        <option value="kelvin">Kelvin</option>
+                    </select>
+                    <br />
+                    <button type="submit">Save Weather</button>
+                </form>
+                <br />
+                <br />
+                <h3>News</h3>
+                <hr>
+                <form method="post" asp-page-handler="News">
+                    <select required class="drop" name="Coun" @Model.selCoun>
+                        <option value="">Select A Country</option>
+                        <option value="ca">Canada</option>
+                        <option value="us">United States</option>
+                    </select>
+                    <select required class="drop" name="Articles" @Model.numOfArticles>
+                        <option value="">Amount of Articles Wanted</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                    </select>
+                    <select required class="drop" name="Time">
+                        <option value="">Time To Read Headlines</option>
+                        <option value="10000">10 seconds</option>
+                        <option value="15000">15 seconds</option>
+                        <option value="20000">20 seconds</option>
+                    </select>
+                    <br />
+                    <button type="submit">Save News</button>
+                </form>
+                <br />
+                <br />
+                <h3>Screen Size</h3>
+                <hr>
+                <form method="post" asp-page-handler="ScreenSize">
+                    <select required class="drop" name="Size">
+                        <option value="">Select Screen Size</option>
+                        <option value="912">9 - 12 inch</option>
+                        <option value="1418">14 - 18 inch</option>
+                        <option value="2123">21 - 23 inch</option>
+                    </select>
+                    <select required class="drop" name="Size">
+                        <option value="">Select Screen Layout</option>
+                        <option value="landscape">Landscape</option>
+                        <option value="portrait">Portrait</option>
+                    </select>
+                    <br />
+                    <button type="submit">Save Screen Settings</button>
+                </form>
+                <br />
+                <br />
+                <h3>Screen Layout</h3>
+                <hr>
+                <br />
+                <div class="resize-container">
+                    <div id="calendar" class="dragSize">
+                        <p>Calendar</p>
+                    </div>
+                    <div id="photo" class="dragSize">
+                        <p>Photo</p>
+                    </div>
+                    <div id="weather" class="dragSize">
+                        <p>Weather</p>
+                    </div>
+                    <div id="news" class="dragSize">
+                        <p>News</p>
+                    </div>
+                </div>
+                <button type="submit">Save Layout</button>
+                <br />
+                <br />
+                <br />
+                <hr>
+                <hr>
+                <h3>Contact</h3>
+                <hr>
+                <div id="contact" class="contact-div2">
+                    <form class="contactForm2" action="/" method="post">
+                        <input type="text" class="contactText2" placeholder="Your Name" />
+                        <input type="text" class="contactText2" placeholder="Your Email" />
+                        <textarea class="contactText2" placeholder="Your Message"></textarea>
+                        <button type="submit" class="contactFormBtn">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+     }
+
+    <div class="footer">
+        <div class="f1">
+            <img src="~/images/VSlogo.svg.png" alt="Visual Studio" />
+        </div>
+        <div class="f2">
+            <img src="~/images/dotnetcoreLogo.png" alt=".Net Core" />
+        </div>
+        <div class="f3">
+            <img src="~/images/csharpLogo.png" alt="C#" />
+        </div>
+        <div class="f4">
+            <p>&copy; 2018 - PHRAMD</p>
+        </div>
+        <div class="f5">
+            <img src="~/images/sqlserverLogo.png" alt="SQL Server" />
+        </div>
+        <div class="f6">
+            <img src="~/images/HTML5Badge.png" alt="HTML 5" />
+        </div>
+        <div class="f7">
+            <img src="~/images/CSS3Logo.png" alt="CSS 3" />
+        </div>
+    </div>
+    <div id="logIn" class="modal">
+        <form class="modalContent animate" method="post" asp-page-handler="Login">
+            <div class="container">
+                <h1>Login</h1>
+                <hr>
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <button type="submit">Login</button>
+                <button type="button" onclick="document.getElementById('logIn').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div id="register" class="modal">
+        <form class="modalContent animate" method="post" asp-page-handler="NewUser">
+            <div class="container">
+                <h1>Sign Up</h1>
+                <hr>
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" required>
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <button type="submit">Register</button>
+                <button type="button" onclick="document.getElementById('register').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+

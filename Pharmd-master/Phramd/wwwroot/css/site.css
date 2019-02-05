@@ -1,0 +1,269 @@
+
+body {
+    margin: 0 auto;
+}
+.footer {
+    grid-area: footer;
+}
+.about-div {
+    grid-area: about;
+}
+.contact-div {
+    grid-area: contact;
+}
+.slider-div {
+    grid-area: slider;
+}
+.accountSettings-div {
+    grid-area: slider;
+}
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        'nav nav nav nav nav nav'
+        'slider slider slider slider slider slider'
+        'about about about about about about'
+        'contact contact contact contact contact contact' 
+        'footer footer footer footer footer footer';
+    grid-gap: 10px;
+    background-color: rgb(0,0,0);
+    padding: 10px;
+}
+    .grid-container > div {
+        text-align: center;
+        font-size: 20px;
+    }
+.nav {
+    display: grid;
+    width: 100%;
+    grid-area: nav;
+    grid-template-columns: repeat(10, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 10px;
+    background-color: #000;
+    z-index: 3;
+    position: fixed;
+    align-items: center;
+    text-align: center;
+}
+    .logo {
+        grid-column: 1;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+        .logo img {
+            width: 75px;
+        }
+    .about {
+        grid-column: 2;
+    }
+    .contact {
+        grid-column: 3;
+    }
+    .account {
+        grid-column: 10;
+    }
+        .accountContent, .unameContetnt {
+            display: none;
+            position: absolute;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        }
+        .account:hover .accountContent {
+            display: block;
+        }
+        .uname:hover .unameContetnt {
+            display: block;
+        }
+        .unameContetnt input[type=submit]{
+            border:none;
+            outline:none;
+            background:none;
+            cursor:pointer;
+            padding:0;
+            font-family:inherit;
+            font-size:inherit;
+        }
+        .uname p {
+            color: #fff;
+        }
+    .signIn, .signOut {
+        grid-column: 9;
+    }
+    .signUp, .uname{
+        grid-column: 10;
+    }
+.navLinks {
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+}
+    .navLinks:hover {
+        color: #c1272d;
+        padding: 10px;
+    }
+.slider, .accountSettings {
+    padding-top: 90px;
+    height: auto;
+    width: 90%;
+    margin: 0 auto;
+    color: #fff;
+    text-align: left;
+}
+.left {
+    padding-top: 90px;
+    height: auto;
+    width: 50%;
+    float: left;
+}
+.right {
+    padding-top: 90px;
+    height: auto;
+    width: 50%;
+    float: left;
+}
+.footer {
+    display: grid;
+    width: 100%;
+    grid-area: footer;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 10px;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+    .footer img {
+        width: 50px;
+    }
+    .f1 {
+        grid-column: 1;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .f2 {
+        grid-column: 2;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .f3 {
+        grid-column: 3;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .f4 {
+        grid-column: 4;
+    }
+    .f5 {
+        grid-column: 5;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .f6 {
+        grid-column: 6;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .f7 {
+        grid-column: 7;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+    input[type=text]:focus, input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
+    }
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    float: left;
+}
+    button:hover {
+        opacity: 1;
+    }
+.cancelbtn {
+    width: 50%;
+    float: left;
+    padding: 14px 20px;
+    margin: 8px 0;
+    background-color: #c1272d;
+}
+.container {
+    padding: 16px;
+}
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 4; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    padding-top: 60px;
+}
+.modalContent {
+    background-color: rgb(204,204,204);
+    margin: 5% auto 20% auto;
+    border: 1px solid #888;
+    width: 80%;
+}
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+@-webkit-keyframes animatezoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+@keyframes animatezoom {
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
+}
+/* Account page */
+.hiddenGmail, .hiddenApple, .hiddenMicro, .hiddenGPhoto {
+    display: none;
+}
+.calImages img {
+    width: 100px;
+}
+.gmailCal, .appleCal, .microCal, gPhoto {
+    padding: 0 20px 0 20px;
+}
+/* Rearrange for smaller screens */
+@media screen and (max-width: 700px) {
+}

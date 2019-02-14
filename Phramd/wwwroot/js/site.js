@@ -1,33 +1,37 @@
-﻿/*Pops up the Login/Signup*/
+﻿
+// Login/Signup Drop down
 var modal = document.getElementById('logIn', 'register');
 window.onclick = function (event) {
     if (event.target === modal) {
         modal.style.display = "none";
     }
 }
-/*Hides other Input Fields to allow only one at a time - reduces confusion*/
+
+// Only show selected email for calendar
 $(function () {
-        $("#gmailCal").on("click", function () {
-            $("#hiddenGmail").toggle()
-            $("#hiddenApple").toggle(this.hidden)
-            $("#hiddenMicro").toggle(this.hidden)
+        $(".gmailCal").on("click", function () {
+            $(".hiddenGmail").toggle()
+            $(".hiddenApple").toggle(this.hidden)
+            $(".hiddenMicro").toggle(this.hidden)
         })
-        $("#appleCal").on("click", function () {
-            $("#hiddenApple").toggle()
-            $("#hiddenGmail").toggle(this.hidden)
-            $("#hiddenMicro").toggle(this.hidden)
+        $(".appleCal").on("click", function () {
+            $(".hiddenApple").toggle()
+            $(".hiddenMicro").toggle(this.hidden)
+            $(".hiddenGmail").toggle(this.hidden)
         })
-        $("#microCal").on("click", function () {
-            $("#hiddenMicro").toggle()
-            $("#hiddenGmail").toggle(this.hidden)
-            $("#hiddenApple").toggle(this.hidden)
+        $(".microCal").on("click", function () {
+            $(".hiddenMicro").toggle()
+            $(".hiddenApple").toggle(this.hidden)
+            $(".hiddenGmail").toggle(this.hidden)
         })
-        $("#gPhoto").on("click", function () {
-            $("#hiddenGPhoto").toggle()
+        $(".gPhoto").on("click", function () {
+            $(".hiddenGPhoto").toggle()
         })
     }
 )
-/*Slider for Product Information*/
+
+// Logout/No Account Slider
+// SHOULD MAKE THE HOME PAGE
 var myIndex = 0;
 carousel();
 function carousel() {
@@ -41,3 +45,10 @@ function carousel() {
     x[myIndex - 1].style.display = "block";
     setTimeout(carousel, 5000);
 }
+
+// News 
+// Better to have slider or timer?
+// Movie Marvel Cast Page - Images Array ????
+
+
+

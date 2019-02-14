@@ -1,25 +1,40 @@
+
 /* If time fix this smelly code */
-/* Order in the same way as page - done
-keep grid area assignments with the code that is edditing it - done
+/* Order in the same way as page
+keep grid area assignments with the code that is edditing it
 blah-div remove and use just the id 
 Rename Modal to Popup (sign in/sign up) */
 body {
     margin: 0 auto;
     font-family: Dreamlands;
 }
-
+.footer {
+    grid-area: footer;
+}
+.about-div {
+    grid-area: about;
+    background: #D3D3D3;
+}
+.contact-div {
+    grid-area: contact;
+}
+.slider-div {
+    grid-area: slider;
+    height: 400px;
+    padding-top: 10px;
+}
 .accountSettings-div {
-    grid-area: sld;
+    grid-area: slider;
 }
 .grid-container {
     display: grid;
     grid-template-areas:
         /* Better to use three letters so it's easier to read - done */
         'nav nav nav nav nav nav'
-        'sld sld sld sld sld sld'
-        'abt abt abt abt abt abt'
-        'con con con con con con' 
-        'fot fot fot fot fot fot';
+        'slider slider slider slider slider slider'
+        'about about about about about about'
+        'contact contact contact contact contact contact' 
+        'footer footer footer footer footer footer';
     grid-gap: 10px;
     background-color: rgb(0,0,0);
     padding: 10px;
@@ -36,43 +51,146 @@ body {
     grid-auto-rows: auto;
     grid-gap: 10px;
     background-color: #000;
-    z-index: 3;
+    z-index: 10;
     position: fixed;
     align-items: center;
     text-align: center;
 }
-    .navLogo {
+    .logo {
         grid-column: 1;
         background-position: center;
         background-size: contain;
         background-repeat: no-repeat;
     }
-        .navLogo img {
+        .logo img {
             width: 75px;
         }
-    .navLinks {
-        font-size: 20px;
-        text-decoration: none;
-        color: #fff;
-    }
-        .navLinks:hover {
-            color: #c1272d;
-            padding: 10px;
-        }
-
-    .navAbout {
+    .about {
         grid-column: 2;
     }
-    .navContact {
+
+    .contact {
         grid-column: 9;
     }
-        
-
-.slider-div {
-    grid-area: sld;
-    height: 400px;
-    padding-top: 10px;
+    .contact-div h2{
+        color: #fff;
+    }
+    .border {
+        width: 500px;
+        height: 5px;
+        background: #fff;
+        margin: 40px auto;
+        }
+    .about-div{
+        color: #000;
+        padding: 0 20px;
+        font-family: 'Kravitz Thermal';
+    }
+    .boardInfo{
+        width: 100%;
+        color: #000;
+        font-family: Dreamlands;
+    }
+        .borderAbout {
+            width: 500px;
+            height: 5px;
+            background: #000;
+            margin: 40px auto;
+        }
+    .contactForm{
+        max-width: 800px;
+        margin: auto;
+        padding: 0 10px;
+    }
+    .contactText{
+        display: block;
+        width: 100%;
+        box-sizing:border-box;
+        margin: 10px 0;
+        border: 0;
+        padding: 10px 20px;
+        outline: none;
+        transition: 0.5s;
+    }
+        .contactText:focus {
+            box-shadow: 0 0 10px 8px #4CAF50;
+        }
+        textarea.contactText{
+            resize: none;
+            height: 120px;
+        }
+.contact-div2 h2, h3 {
+    color: #fff;
 }
+.border2 {
+    width: 500px;
+    height: 5px;
+    background: #fff;
+    margin: 40px auto;
+}
+.contactForm2 {
+    margin: auto;
+}
+.contactText2 {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    margin: 10px 0;
+    padding: 10px 20px;
+    outline: none;
+    transition: 0.5s;
+}
+    .contactText2:focus {
+        box-shadow: 0 0 10px 8px #4CAF50;
+    }
+
+textarea2.contactText {
+    resize: none;
+    height: 120px;
+}
+        .account {
+            grid-column: 10;
+        }
+        .accountContent, .unameContetnt {
+            display: none;
+            position: absolute;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        }
+        .account:hover .accountContent {
+            display: block;
+        }
+        .uname:hover .unameContetnt {
+            display: block;
+        }
+        .unameContetnt input[type=submit]{
+            border:none;
+            outline:none;
+            background:none;
+            cursor:pointer;
+            padding:0;
+            font-family:inherit;
+            font-size:inherit;
+        }
+        .uname p {
+            color: #fff;
+        }
+    .signIn, .signOut {
+        grid-column: 9;
+    }
+    .signUp, .uname{
+        grid-column: 10;
+    }
+.navLinks {
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+}
+    .navLinks:hover {
+        color: #c1272d;
+        padding: 10px;
+    }
 .slider, .accountSettings {
     padding-top: 90px;
     height: auto;
@@ -85,113 +203,28 @@ body {
         margin: 0 auto;
         align-content: center;
     }
-.left {
-    height: auto;
-    width: calc(50% - 20px);
-    padding: 0 10px;
-    text-align: left;
-    float: left;
-}
-.right {
-    height: auto;
-    width: calc(50% - 20px);
-    padding: 0 10px;
-    text-align: right;
-    float: left;
-}
+    .left {
+        height: auto;
+        width: calc(50% - 20px);
+        padding: 0 10px;
+        text-align: left;
+        float: left;
+    }
+    .right {
+        height: auto;
+        width: calc(50% - 20px);
+        padding: 0 10px;
+        text-align: right;
+        float: left;
+    }
     .left h3, .right h3 {
         font-family: Dreamlands;
         color: #000;
     }
-
-.about-div {
-    grid-area: abt;
-    background: #D3D3D3;
-    color: #000;
-    padding: 0 20px;
-    font-family: 'Kravitz Thermal';
-}
-        .boardInfo{
-            width: 100%;
-            color: #000;
-            font-family: Dreamlands;
-        }
-        .borderAbout {
-            width: 500px;
-            height: 5px;
-            background: #000;
-            margin: 40px auto;
-        }
-
-.contact-div {
-    grid-area: con;
-}
-    .contact-div h2 {
-        color: #fff;
-    }
-    .border {
-        width: 500px;
-        height: 5px;
-        background: #fff;
-        margin: 40px auto;
-    }
-        .contactForm{
-            max-width: 800px;
-            margin: auto;
-            padding: 0 10px;
-        }
-        .contactText{
-            display: block;
-            width: 100%;
-            box-sizing:border-box;
-            margin: 10px 0;
-            border: 0;
-            padding: 10px 20px;
-            outline: none;
-            transition: 0.5s;
-        }
-            .contactText:focus {
-                box-shadow: 0 0 10px 8px #4CAF50;
-            }
-            textarea.contactText{
-                resize: none;
-                height: 120px;
-            }
-    .contact-div2 h2, h3 {
-        color: #fff;
-    }
-    .border2 {
-        width: 500px;
-        height: 5px;
-        background: #fff;
-        margin: 40px auto;
-    }
-    .contactForm2 {
-        margin: auto;
-    }
-    .contactText2 {
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-        border: 0;
-        margin: 10px 0;
-        padding: 10px 20px;
-        outline: none;
-        transition: 0.5s;
-    }
-        .contactText2:focus {
-            box-shadow: 0 0 10px 8px #4CAF50;
-        }
-
-    textarea2.contactText {
-        resize: none;
-        height: 120px;
-    }
-      
 .footer {
     display: grid;
     width: 100%;
-    grid-area: fot;
+    grid-area: footer;
     grid-template-columns: repeat(7, 1fr);
     grid-auto-rows: auto;
     grid-gap: 10px;
@@ -241,50 +274,6 @@ body {
         background-size: contain;
         background-repeat: no-repeat;
     }
-
-
-/*Login/Signup*/
-.navAccount {
-    grid-column: 10;
-}
-
-.accountContent, .unameContetnt {
-    display: none;
-    position: absolute;
-    min-width: 150px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.navAccount:hover .accountContent {
-    display: block;
-}
-
-.uname:hover .unameContetnt {
-    display: block;
-}
-
-.unameContetnt input[type=submit] {
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-    padding: 0;
-    font-family: inherit;
-    font-size: inherit;
-}
-
-.uname p {
-    color: #fff;
-}
-
-.signIn, .signOut {
-    grid-column: 9;
-}
-
-.signUp, .uname {
-    grid-column: 10;
-}
-
 input[type=text], input[type=password] {
     width: 100%;
     padding: 12px 20px;
@@ -293,13 +282,11 @@ input[type=text], input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-
     input[type=text]:focus, input[type=password]:focus {
         background-color: #ddd;
         outline: none;
         box-shadow: 0 0 10px 8px #4CAF50;
     }
-
 button {
     background-color: #4CAF50;
     color: white;
@@ -310,7 +297,6 @@ button {
     width: 50%;
     float: left;
 }
-
 .removeButton {
     background-color: #c1272d;
     color: white;
@@ -321,11 +307,16 @@ button {
     width: 50%;
     float: left;
 }
-
-    button:hover, .removeButton:hover {
-        opacity: 1;
-    }
-
+button:hover, .removeButton:hover {
+    opacity: 1;
+}
+.cancelbtn {
+    width: 50%;
+    float: left;
+    padding: 14px 20px;
+    margin: 8px 0;
+    background-color: #c1272d;
+}
 .container {
     padding: 10px 10px 60px 10px;
 }
@@ -348,13 +339,6 @@ button {
     border: 1px solid #888;
     width: 80%;
     font-family: 'Kravitz Thermal';
-}
-.cancelbtn {
-    width: 50%;
-    float: left;
-    padding: 14px 20px;
-    margin: 8px 0;
-    background-color: #c1272d;
 }
 hr {
     border: 1px solid #f1f1f1;
@@ -380,21 +364,17 @@ hr {
         transform: scale(1)
     }
 }
-
-
 /* Account page */
 /* should be a calendar class and id's that say where they come from */
-.hide {
+.hiddenGmail, .hiddenApple, .hiddenMicro, .hiddenGPhoto {
     display: none;
 }
 .calImages img {
     width: 100px;
-    height: 100px;
 }
-.calendarS, .photoS {
+.gmailCal, .appleCal, .microCal, gPhoto {
     padding: 0 20px 0 20px;
 }
-/* Dropdown Lists */
 .drop {
     padding: 14px 20px;
     margin: 8px 0;
@@ -403,54 +383,210 @@ hr {
     background-color: rgba(76, 175, 80, 0.7);
     color: #fff;
 }
-/* Screen Layout */
-.dragSize {
-    background-color: #29e;
-    color: white;
-    font-size: 20px;
-    font-family: Dreamlands;
-    text-align: center;
-    padding-top: 15px;
-    margin: 10px;
-    touch-action: none;
-    width: 100px;
-    height: 100px;
-    box-sizing: border-box;
-    touch-action: none;
-    -ms-touch-action: none;
-    -webkit-transform: translate(0px, 0px);
-    transform: translate(0px, 0px);
+/* Rearrange for smaller screens */
+@media screen and (max-width: 700px) {
 }
-    #calendar {
-        background-color: #999;
-    }
-    #photo {
-        background-color: #777;
-    }
-    #weather {
-        background-color: #555;
-    }
-    #news {
-        background-color: #333;
-    }
 
+ /* Drag, Drop & Resize */
+ /* Container */
 .resize-container {
-    display: inline-block;
     margin: 20px;
     width: calc(100% - 40px);
     height: 800px;
     background: #fff;
+    display: -ms-flexbox;
+    -ms-flex-wrap: wrap;
+    -ms-flex-direction: column;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    display: -webkit-box;
 }
-
-
-
-
-
-
-
-
-
-
-/* Rearrange for smaller screens */
-@media screen and (max-width: 700px) {
+/* Drag Items */
+.resize-drag {
+    color: #fff;
+    font-size: 100%;
+    font-family: Arial;
+    border-radius: 8px;
+    padding: 5px;
+    margin: 5px;
+    width: 150px;
+    height: 150px;
+    box-sizing: border-box;
+    -webkit-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+    display: -ms-flexbox;
+    display: flex;
 }
+/* have everything hidden & toggel show when they select */
+#photo {
+    background: #999;
+    z-index: 0;
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    margin: 0px;
+    /*
+     take screen size
+     give colour option???
+    */
+}
+    #calendar {
+        background: #777;
+        z-index: 3;
+        position: inherit;
+    }
+    #weather {
+        background: #555;
+        z-index: 3;
+        position: inherit;
+        min-width: 440px;
+        min-height: 400px;
+        /*
+          have to set something to notice when the data won't fit
+          and have it no longer allow smaller resizing -done
+        */
+    }
+    #weatherGrid {
+        display: grid;
+        width: auto;
+        height: auto;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(auto, auto);
+        grid-template-areas: 
+            "img loc des" 
+            "cld ris set" 
+            "tmp hot low" 
+            "spd  .  dir" 
+            "hmd prs vis";
+        /*
+         check list of things they want to see???
+        */
+    }
+        #img {
+            display: grid;
+            grid-area: img;
+            text-align: left;
+            height: auto;
+            width: auto;
+        }
+        #loc {
+            display: grid;
+            grid-area: loc;
+            text-align: center;
+            height: auto;
+            width: auto;
+        }
+        #des {
+            display: grid;
+            grid-area: des;
+            text-align: right;
+            height: auto;
+            width: auto;
+        }
+        #cld {
+            display: grid;
+            grid-area: cld;
+            text-align: left;
+            height: auto;
+            width: auto;
+        }
+        #ris {
+            display: grid;
+            grid-area: ris;
+            text-align: center;
+            height: auto;
+            width: auto;
+        }
+        #set {
+            display: grid;
+            grid-area: set;
+            text-align: right;
+            height: auto;
+            width: auto;
+        }
+        #tmp {
+            display: grid;
+            grid-area: tmp;
+            text-align: left;
+            height: auto;
+            width: auto;
+        }
+        #hot {
+            display: grid;
+            grid-area: hot;
+            text-align: center;
+            height: auto;
+            width: auto;
+        }
+        #low {
+            display: grid;
+            grid-area: low;
+            text-align: right;
+            height: auto;
+            width: auto;
+        }
+        #spd {
+            display: grid;
+            grid-area: spd;
+            text-align: left;
+            height: auto;
+            width: auto;
+        }
+        #dir {
+            display: grid;
+            grid-area: dir;
+            text-align: right;
+            height: auto;
+            width: auto;
+        }
+        #hmd {
+            display: grid;
+            grid-area: hmd;
+            text-align: left;
+            height: auto;
+            width: auto;
+        }
+        #prs {
+            display: grid;
+            grid-area: prs;
+            text-align: center;
+            height: auto;
+            width: auto;
+        }
+        #vis {
+            display: grid;
+            grid-area: vis;
+            text-align: right;
+            height: auto;
+            width: auto;
+        }
+
+    #news {
+        background: #333;
+        z-index: 3;
+        position: inherit;
+        min-width: 400px;
+        min-height: 200px;
+    }
+         #newsGrid {
+        display: grid;
+        text-align: center;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: minmax(50px, auto);
+        grid-template-areas:
+            "hdl hdl"
+            "pbl pbl";
+         }
+            #headline {
+                display: grid;
+                grid-area: hdl;
+                height: auto;
+                width: auto;
+            }
+            #published {
+                display: grid;
+                grid-area: pbl;
+                height: auto;
+                width: auto;
+            }
+

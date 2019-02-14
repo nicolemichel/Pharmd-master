@@ -70,32 +70,16 @@ namespace Phramd.Pages
         public string selCoun;
         public string numOfArticles;
         public string headline;
+        public List<string> headlines;
         public List<string> headlineList;
         public string channel;
+        public List<string> channels;
         public List<string> channelList;
         public string published;
+        public List<string> publishDates;
         public List<string> publishedList;
         public DateTime publishedDate;
-        // stop from skipping over
-        public List<string> headlines = new List<string>();
-        public string headlineOne;
-        public string headlineTwo;
-        public string headlineThree;
-        public string headlineFour;
-        public string headlineFive;
-        public List<string> channels = new List<string>();
-        public string channelOne;
-        public string channelTwo;
-        public string channelThree;
-        public string channelFour;
-        public string channelFive;
-        public List<string> publishDates = new List<string>();
-        public string publishedOne;
-        public string publishedTwo;
-        public string publishedThree;
-        public string publishedFour;
-        public string publishedFive;
-
+       
         // headlines (timer?)
         public void Timer(int Time)
         {

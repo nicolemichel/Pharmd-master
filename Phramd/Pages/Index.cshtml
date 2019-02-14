@@ -8,18 +8,18 @@
     @if (Program.UserDetails.UserID == 0)
     {
         <div class="nav">
-            <div class="navLogo">
+            <div class="logo">
                 <a href="/Index" class="navLinks">
                     <img src="~/images/PhramdLogo.png" alt="PhramdLogo">
                 </a>
             </div>
-            <div class="navAbout">
+            <div class="about">
                 <a href="#about" class="navLinks">Board Info</a>
             </div>
-            <div class="navContact">
+            <div class="contact">
                 <a href="#contact" class="navLinks">Contact</a>
             </div>
-            <div class="navAccount">
+            <div class="account">
                 <a href="#" class="navLinks"><i class="fas fa-user-circle"></i></a>
                 <div class="accountContent">
                     <br />
@@ -28,7 +28,6 @@
                 </div>
             </div>
         </div>
-
         <div class="slider-div">
             <div class="slider">
                 <div>
@@ -41,7 +40,6 @@
                 </div>
             </div>
         </div>
-
         <div id="about" class="about-div">
             <div class="boardInfo">
                 <h2>Board Info</h2>
@@ -80,7 +78,6 @@
                 </p>
             </div>
         </div>
-
         <div id="contact" class="contact-div">
             <h2>Contact</h2>
             <div class="border"></div>
@@ -92,11 +89,10 @@
             </form>
         </div>
     }
-
     @if (Program.UserDetails.UserID != 0)
     {
         <div class="nav">
-            <div class="navLogo">
+            <div class="logo">
                 <a href="/Index" class="navLinks">
                     <img src="~/images/PhramdLogo.png" alt="PhramdLogo">
                 </a>
@@ -104,7 +100,7 @@
             <div class="settings">
                 <a href="/Index" class="navLinks" onclick="userFunction()">User Settings</a>
             </div>
-            <div class="navContact">
+            <div class="contact">
                 <a href="#contact" class="navLinks">Contact</a>
             </div>
             <div class="uname">
@@ -125,21 +121,21 @@
                 <h3>Calendar</h3>
                 <hr>
                 <div id="showForm" class="calImages">
-                    <a id="gmailCal" class="calendarS" href="#"><img src="~/images/google-calendar-logo.png" alt="google cal image" /></a>
-                    <a id="appleCal" class="calendarS" href="#"><img src="~/images/iOS-Calendar-icon.png" alt="apple cal image" /></a>
-                    <a id="microCal" class="calendarS" href="#"><img src="~/images/Microsoft_Outlook_2013_logo.svg_-250x250.png" alt="microsoft cal image" /></a>
+                    <a class="gmailCal" href="#"><img src="~/images/google-calendar-logo.png" alt="google cal image" /></a>
+                    <a class="appleCal" href="#"><img src="~/images/iOS-Calendar-icon.png" alt="apple cal image" /></a>
+                    <a class="microCal" href="#"><img src="~/images/Microsoft_Outlook_2013_logo.svg_-250x250.png" alt="microsoft cal image" /></a>
                 </div>
-                <form id="hiddenGmail" class="hide" method="post" asp-page-handler="CalendarGmail">
+                <form class="hiddenGmail" method="post" asp-page-handler="CalendarGmail">
                     <input type="text" placeholder="Enter Gmail" value="@Program.UserDetails.emails" name="email">
                     <button type="submit">Save Gmail</button>
                     <button class="removeButton" method="post" asp-page-handler="CalendarRemoveGmail" type="submit">Remove</button>
                 </form>
-                <form id="hiddenApple" class="hide" method="post" asp-page-handler="CalendarApple">
+                <form class="hiddenApple" method="post" asp-page-handler="CalendarApple">
                     <input type="text" placeholder="Enter iCloud" value="@Program.UserDetails.emailsA" name="email">
                     <button type="submit">Save Apple</button>
                     <button class="removeButton" method="post" asp-page-handler="CalendarRemoveApple" type="submit">Remove</button>
                 </form>
-                <form id="hiddenMicro" class="hide" method="post" asp-page-handler="CalendarMicro">
+                <form class="hiddenMicro" method="post" asp-page-handler="CalendarMicro">
                     <input type="text" placeholder="Enter Outlook" value="@Program.UserDetails.emailsM" name="email">
                     <button type="submit">Save Microsoft</button>
                     <button class="removeButton" method="post" asp-page-handler="CalendarRemoveMicro" type="submit">Remove</button>
@@ -149,9 +145,9 @@
                 <h3>Photos</h3>
                 <hr>
                 <div id="showForm" class="calImages">
-                    <a id="gPhoto" class="photoS" href="#"><img src="~/images/google-photos-icon-250x250.png" alt="google photos" /></a>
+                    <a class="gPhoto" href="#"><img src="~/images/google-photos-icon-250x250.png" alt="google photos" /></a>
                 </div>
-                <form id="hiddenGPhoto" class="hide" method="post" asp-page-handler="GooglePhotos">
+                <form class="hiddenGPhoto" method="post" asp-page-handler="GooglePhotos">
                     <input type="text" placeholder="Enter Email" value="@Program.UserDetails.GPhoto" name="email">
                     <button type="submit">Save Google Photos</button>
                     <button class="removeButton" method="post" asp-page-handler="PhotoRemoveGmail" type="submit">Remove</button>
@@ -238,19 +234,37 @@
                 <br />
                 <h3>Screen Layout</h3>
                 <hr>
-                <br />
                 <div class="resize-container">
-                    <div id="calendar" class="dragSize">
-                        <p>Calendar</p>
+                    <div id="photo" class="resize-drag">
+                        <h3>Photos</h3>
                     </div>
-                    <div id="photo" class="dragSize">
-                        <p>Photo</p>
+                    <div id="calendar" class="resize-drag">
+                        <h3>Calendar</h3>
                     </div>
-                    <div id="weather" class="dragSize">
-                        <p>Weather</p>
+                    <div id="weather" class="resize-drag">
+                        <div id="weatherGrid">
+                            <img src="@Url.Content(Model.iconShow)" alt="Weather Icon" />
+                            <!--<p id="day">@Model.today</p>-->
+                            <p id="cld">Clouds: @Model.all%</p>
+                            <p id="loc">@Model.selCity, @Model.selCountry</p>
+                            <p id="des">@Model.desc</p>
+                            <p id="ris">Sunrise: @Model.riseTime</p>
+                            <p id="set">Sunset: @Model.setTime</p>
+                            <p id="tmp">Currently: @Model.temp</p>
+                            <p id="hot">High: @Model.tempHigh</p>
+                            <p id="low">Low: @Model.tempLow</p>
+                            <p id="spd">Wind Speed: @Model.windSpeed</p>
+                            <p id="dir">Wind Direction: @Model.windText</p>
+                            <p id="hmd">Humidity: @Model.humidity%</p>
+                            <p id="prs">Pressure: @Model.pressure hPa</p>
+                            <p id="vis">Visibility: @Model.visibility</p>
+                        </div>
                     </div>
-                    <div id="news" class="dragSize">
-                        <p>News</p>
+                    <div id="news" class="resize-drag">
+                        <div id="newsGrid" style="display: @Model.display" onload="article(@Model.headlineList) && date(@Model.publishedList)">
+                            <p id="headline">@Model.headline</p>
+                            <p id="published">@Model.published</p>
+                        </div>
                     </div>
                 </div>
                 <button type="submit">Save Layout</button>
@@ -272,7 +286,6 @@
             </div>
         </div>
      }
-
     <div class="footer">
         <div class="f1">
             <img src="~/images/VSlogo.svg.png" alt="Visual Studio" />

@@ -24,6 +24,7 @@
                 <div class="accountContent">
                     <br />
                     <a href="#" onclick="document.getElementById('logIn').style.display='block'" class="navLinks">Login</a><br />
+                    <!--Login Error Here - if the username doesn't match display a message-->
                     <a href="#" onclick="document.getElementById('register').style.display='block'" class="navLinks">Sign Up</a>
                 </div>
             </div>
@@ -118,6 +119,60 @@
         <div id="accountSet" class="accountSettings-div">
             <div id="accountSettings" class="accountSettings">
                 <h2>User Settings</h2>
+                <h3>Date and Time</h3>
+                <hr>
+                <form method="post" asp-page-handler="Date">
+                    <select class="drop" name="ddDay" @Model.selDay>
+                        <option value="">Day</option>
+                        <option value="d">@Model.sDay</option>
+                        <option value="dd">@Model.day</option>
+                    </select>
+                    <select class="drop" name="ddDate" @Model.selDate>
+                        <option value="">Date</option>
+                        <option value="ddd">@Model.sDate</option>
+                        <option value="dddd">@Model.date</option>
+                    </select>
+                    <select class="drop" name="ddMonth" @Model.selMonth>
+                        <option value="">Month</option>
+                        <option value="M">@Model.snMonth</option>
+                        <option value="MM">@Model.nMonth</option>
+                        <option value="MMM">@Model.sMonth</option>
+                        <option value="MMMM">@Model.month</option>
+                    </select>
+                    <select class="drop" name="ddYear" @Model.selYear>
+                        <option value="">Year</option>
+                        <option value="y">@Model.sYear</option>
+                        <option value="">@Model.year</option>
+                    </select>
+                    <br />
+                    <button type="submit">Save Date</button>
+                    <br />
+                </form>
+                <br />
+                <br />
+                <form method="post" asp-page-handler="Time">
+                    <select class="drop" name="ddHours" @Model.selHour>
+                        <option value="">Hours</option>
+                        <option value="hh">@Model.hour</option>
+                    </select>
+                    <select required class="drop" name="ddMinutes" @Model.selMin>
+                        <option value="">Minutes</option>
+                        <option value="mm">@Model.minutes</option>
+                    </select>
+                    <select required class="drop" name="ddSeconds" @Model.selSec>
+                        <option value="">Seconds</option>
+                        <option value="ss">@Model.seconds</option>
+                    </select>
+                    <select class="drop" name="ddTime" @Model.selTime>
+                        <option value="">Time</option>
+                        <option value="t">@Model.sTime</option>
+                        <option value="tt">@Model.time</option>
+                    </select>
+                    <br />
+                    <button type="submit">Save Time</button>
+                    <br />
+                    <br />
+                </form>
                 <h3>Calendar</h3>
                 <hr>
                 <div id="showForm" class="calImages">
@@ -235,16 +290,24 @@
                 <h3>Screen Layout</h3>
                 <hr>
                 <div class="resize-container">
-                    <div id="photo" class="resize-drag">
+                    <div id="dayTime" class="resize-drag dt">
+                        <h3>Time of Day</h3>
+                        <!--Take From Computer DateTime
+                        Give options of mm/dd/yyyy time
+                        or dd/mm Time or dddd/dd/mm Time Etc.
+                        Can do this by taking in time, month and date seperatly
+                        rearranging in certain ways and letting them select one
+                        OR yes/no to date option and don't let them choose the display-->
+                    </div>
+                    <div id="photo" class="resize-drag p">
                         <h3>Photos</h3>
                     </div>
-                    <div id="calendar" class="resize-drag">
+                    <div id="calendar" class="resize-drag c">
                         <h3>Calendar</h3>
                     </div>
-                    <div id="weather" class="resize-drag">
+                    <div id="weather" class="resize-drag w">
                         <div id="weatherGrid">
                             <img src="@Url.Content(Model.iconShow)" alt="Weather Icon" />
-                            <!--<p id="day">@Model.today</p>-->
                             <p id="cld">Clouds: @Model.all%</p>
                             <p id="loc">@Model.selCity, @Model.selCountry</p>
                             <p id="des">@Model.desc</p>
@@ -260,7 +323,7 @@
                             <p id="vis">Visibility: @Model.visibility</p>
                         </div>
                     </div>
-                    <div id="news" class="resize-drag">
+                    <div id="news" class="resize-drag n">
                         <div id="newsGrid" style="display: @Model.display" onload="article(@Model.headlineList) && date(@Model.publishedList)">
                             <p id="headline">@Model.headline</p>
                             <p id="published">@Model.published</p>

@@ -29,7 +29,7 @@ body {
 .grid-container {
     display: grid;
     grid-template-areas:
-        /* Better to use three letters so it's easier to read - done */
+        /* Better to use three letters so it's easier to read */
         'nav nav nav nav nav nav'
         'slider slider slider slider slider slider'
         'about about about about about about'
@@ -389,17 +389,19 @@ hr {
 
  /* Drag, Drop & Resize */
  /* Container */
+ /* ONLY display sfter they select the screen size and orientation */
 .resize-container {
     margin: 20px;
     width: calc(100% - 40px);
     height: 800px;
     background: #fff;
-    display: -ms-flexbox;
     -ms-flex-wrap: wrap;
     -ms-flex-direction: column;
     -webkit-flex-flow: row wrap;
     flex-flow: row wrap;
     display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
 }
 /* Drag Items */
 .resize-drag {
@@ -408,7 +410,7 @@ hr {
     font-family: Arial;
     border-radius: 8px;
     padding: 5px;
-    margin: 5px;
+    margin: 2.5px;
     width: 150px;
     height: 150px;
     box-sizing: border-box;
@@ -416,36 +418,50 @@ hr {
     transform: translate(0px, 0px);
     display: -ms-flexbox;
     display: flex;
+    user-select: none;
 }
-/* have everything hidden & toggel show when they select */
-#photo {
+/* have everything hidden & toggel show when they save */
+.dt {
+    /* date time drag/resize class */
     background: #999;
+    z-index: 3;
+    text-align: center;
+    position: static;
+    max-width: calc(50% - 5px);
+    max-height: calc(50% - 5px);
+}
+.p {
+    /* photo drag/resize class */
+    background: #888;
     z-index: 0;
     position: absolute;
     width: inherit;
+    max-width: 86.2%;
     height: inherit;
     margin: 0px;
+}
+.c {
+    /* calendar drag/resize class */
+    background: #777;
+    z-index: 3;
+    position: static;
+    max-width: calc(50% - 5px);
+    max-height: calc(50% - 5px);
+}
+.w {
+    /* weather drag/resize class */
+    background: #666;
+    z-index: 3;
+    position: static;
+    min-width: 440px;
+    min-height: 400px;
+    max-width: calc(50% - 5px);
+    max-height: calc(50% - 5px);
     /*
-     take screen size
-     give colour option???
+     have to set something to notice when the data won't fit
+     and have it no longer allow smaller resizing -done
     */
 }
-    #calendar {
-        background: #777;
-        z-index: 3;
-        position: inherit;
-    }
-    #weather {
-        background: #555;
-        z-index: 3;
-        position: inherit;
-        min-width: 440px;
-        min-height: 400px;
-        /*
-          have to set something to notice when the data won't fit
-          and have it no longer allow smaller resizing -done
-        */
-    }
     #weatherGrid {
         display: grid;
         width: auto;
@@ -459,7 +475,7 @@ hr {
             "spd  .  dir" 
             "hmd prs vis";
         /*
-         check list of things they want to see???
+            check list of things they want to see???
         */
     }
         #img {
@@ -560,33 +576,35 @@ hr {
             height: auto;
             width: auto;
         }
-
-    #news {
-        background: #333;
-        z-index: 3;
-        position: inherit;
-        min-width: 400px;
-        min-height: 200px;
-    }
-         #newsGrid {
-        display: grid;
-        text-align: center;
-        grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: minmax(50px, auto);
-        grid-template-areas:
-            "hdl hdl"
-            "pbl pbl";
-         }
-            #headline {
-                display: grid;
-                grid-area: hdl;
-                height: auto;
-                width: auto;
-            }
-            #published {
-                display: grid;
-                grid-area: pbl;
-                height: auto;
-                width: auto;
-            }
+.n {
+    /* news drag/resize class */
+    background: #555;
+    z-index: 3;
+    position: static;
+    min-width: 400px;
+    min-height: 200px;
+    max-width: calc(50% - 5px);
+    max-height: calc(50% - 5px);
+}
+   #newsGrid {
+    display: grid;
+    text-align: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(50px, auto);
+    grid-template-areas:
+        "hdl hdl"
+        "pbl pbl";
+   }
+        #headline {
+            display: grid;
+            grid-area: hdl;
+            height: auto;
+            width: auto;
+        }
+        #published {
+            display: grid;
+            grid-area: pbl;
+            height: auto;
+            width: auto;
+        }
 

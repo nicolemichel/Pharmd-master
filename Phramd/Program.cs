@@ -19,6 +19,7 @@ namespace Phramd
 {
     public class Program
     {
+        public static DateFormats DateFormats = new DateFormats();
         public static UserDetails UserDetails = new UserDetails();
         public static Calendar Calendar = new Calendar();
         public static CalendarDetails CalendarDetails = new CalendarDetails();

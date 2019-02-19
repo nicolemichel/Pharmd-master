@@ -5,7 +5,7 @@ interact('.resize-drag')
         helper: "clone",
         addClasses: false,
         onmove: dragMoveListener,
-        restrict: { // find a a way to apply this to all boxes not just selected
+        restrict: { // find a way to apply this to all boxes not just selected
             restriction: 'parent',
             elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
         },
@@ -25,7 +25,7 @@ interact('.resize-drag')
             min: { width: 150, height: 150 },
         },
         
-        inertia: true,
+        inertia: true, 
     })
     .on('resizemove', function (event) {
         var target = event.target,
@@ -59,7 +59,7 @@ function dragMoveListener(event) {
         target.style.transform =
         'translate(' + x + 'px, ' + y + 'px)';
 
-    // update the posiion attributes
+    // update the position attributes
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
 }

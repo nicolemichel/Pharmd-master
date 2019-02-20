@@ -14,9 +14,9 @@ namespace Phramd.Migrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    username = table.Column<string>(maxLength: 100, nullable: true),
-                    email = table.Column<string>(maxLength: 100, nullable: true),
-                    password = table.Column<string>(maxLength: 100, nullable: true),
+                    username = table.Column<string>(maxLength: 100, nullable: false),
+                    email = table.Column<string>(maxLength: 100, nullable: false),
+                    password = table.Column<string>(maxLength: 100, nullable: false),
                     signupdate = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()"),
                     canceldate = table.Column<DateTime>(nullable: true)
                 },
@@ -44,6 +44,33 @@ namespace Phramd.Migrations
                     table.ForeignKey(
                         name: "FK_CalendarModel_User_UserID",
                         column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DateTimeFormats",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Day = table.Column<string>(nullable: true),
+                    Date = table.Column<string>(nullable: true),
+                    Month = table.Column<string>(nullable: true),
+                    Year = table.Column<string>(nullable: true),
+                    Hour = table.Column<string>(nullable: true),
+                    Minutes = table.Column<string>(nullable: true),
+                    Seconds = table.Column<string>(nullable: true),
+                    Time = table.Column<string>(nullable: true),
+                    userId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DateTimeFormats", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_DateTimeFormats_User_userId",
+                        column: x => x.userId,
                         principalTable: "User",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -125,6 +152,11 @@ namespace Phramd.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DateTimeFormats_userId",
+                table: "DateTimeFormats",
+                column: "userId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_News_userId",
                 table: "News",
                 column: "userId");
@@ -144,6 +176,9 @@ namespace Phramd.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CalendarModel");
+
+            migrationBuilder.DropTable(
+                name: "DateTimeFormats");
 
             migrationBuilder.DropTable(
                 name: "News");

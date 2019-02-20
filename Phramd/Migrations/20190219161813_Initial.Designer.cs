@@ -10,7 +10,7 @@ using Phramd.Models;
 namespace Phramd.Migrations
 {
     [DbContext(typeof(PhramdContext))]
-    [Migration("20190129135413_Initial")]
+    [Migration("20190219161813_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,37 @@ namespace Phramd.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("CalendarModel");
+                });
+
+            modelBuilder.Entity("Phramd.Models.DTFormatsDB", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Date");
+
+                    b.Property<string>("Day");
+
+                    b.Property<string>("Hour");
+
+                    b.Property<string>("Minutes");
+
+                    b.Property<string>("Month");
+
+                    b.Property<string>("Seconds");
+
+                    b.Property<string>("Time");
+
+                    b.Property<string>("Year");
+
+                    b.Property<int>("userId");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("DateTimeFormats");
                 });
 
             modelBuilder.Entity("Phramd.Models.NewsDB", b =>
@@ -163,6 +194,14 @@ namespace Phramd.Migrations
                     b.HasOne("Phramd.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Phramd.Models.DTFormatsDB", b =>
+                {
+                    b.HasOne("Phramd.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

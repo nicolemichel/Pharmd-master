@@ -49,7 +49,7 @@
             <div class="left">
                 <h3>Digital Photo Frame</h3>
                 <p>
-                    Authorize your favorite photo sharing service such as Google Photos and let Phramd be your digital art display!
+                    Authorize your favourite photo sharing service such as Google Photos and let Phramd be your digital art display!
                     Configure it to show your latest photos, or pull from a specific album. Have it change the photo at any interval you
                     choose. There's no separate albums to manage, or SD cards to load. Phramd is a wifi connected, smart picture frame!
                 </p>
@@ -75,7 +75,12 @@
                 <h3>Zero Maintenance</h3>
                 <p>
                     Once configured, there's no SD cards to load, no additional calendars to update and no photos to upload.
-                    Phramd is a perfect smart home dashboard, always displaying your latest and relevant content!
+                    Phramd is a perfect smart home dashboard, always displaying your latest and greatest content!
+                </p>
+                <h3>Canadian Made</h3>
+                <p>
+                    Creators Mike and Nicole were attending TriOS college in London, Ontario when the task of a 3 month long C# project came a-foot. 
+                    Phramd was the result.
                 </p>
             </div>
         </div>
@@ -121,15 +126,16 @@
                 <h2>User Settings</h2>
                 <h3>Date and Time</h3>
                 <hr>
-                <form method="post" asp-page-handler="Date">
+                <form method="post" asp-page-handler="DTFormat">
+                    <p>Date</p>
                     <select class="drop" name="ddDay" @Model.selDay>
                         <option value="">Day</option>
                         <option value="d">@Model.sDay</option>
-                        <option value="dd">@Model.day</option>
+                        <option value="dd">@Model.day</option> <!--Default-->
                     </select>
                     <select class="drop" name="ddDate" @Model.selDate>
                         <option value="">Date</option>
-                        <option value="ddd">@Model.sDate</option>
+                        <option value="ddd">@Model.sDate</option> <!--Default-->
                         <option value="dddd">@Model.date</option>
                     </select>
                     <select class="drop" name="ddMonth" @Model.selMonth>
@@ -137,39 +143,37 @@
                         <option value="M">@Model.snMonth</option>
                         <option value="MM">@Model.nMonth</option>
                         <option value="MMM">@Model.sMonth</option>
-                        <option value="MMMM">@Model.month</option>
+                        <option value="MMMM">@Model.month</option> <!--Default-->
                     </select>
                     <select class="drop" name="ddYear" @Model.selYear>
                         <option value="">Year</option>
                         <option value="y">@Model.sYear</option>
-                        <option value="">@Model.year</option>
+                        <option value="yyyy">@Model.year</option> <!--Default-->
                     </select>
-                    <br />
-                    <button type="submit">Save Date</button>
-                    <br />
-                </form>
                 <br />
                 <br />
-                <form method="post" asp-page-handler="Time">
-                    <select class="drop" name="ddHours" @Model.selHour>
+                    <p>Time</p>
+                    <select required class="drop" name="ddHours" @Model.selHour>
                         <option value="">Hours</option>
-                        <option value="hh">@Model.hour</option>
+                        <option value="h">@Model.sHour (12hr)</option>
+                        <option value="hh">@Model.hour (012hr)</option> <!--Default-->
+                        <option value="H">@Model.military (24hr)</option>
                     </select>
                     <select required class="drop" name="ddMinutes" @Model.selMin>
                         <option value="">Minutes</option>
-                        <option value="mm">@Model.minutes</option>
+                        <option value="mm">@Model.minutes</option> <!--Default-->
                     </select>
                     <select required class="drop" name="ddSeconds" @Model.selSec>
                         <option value="">Seconds</option>
-                        <option value="ss">@Model.seconds</option>
+                        <option value="ss">@Model.seconds</option> <!--Default-->
                     </select>
                     <select class="drop" name="ddTime" @Model.selTime>
                         <option value="">Time</option>
                         <option value="t">@Model.sTime</option>
-                        <option value="tt">@Model.time</option>
+                        <option value="tt">@Model.time</option> <!--Default-->
                     </select>
                     <br />
-                    <button type="submit">Save Time</button>
+                    <button type="submit">Save Date and Time</button>
                     <br />
                     <br />
                 </form>
@@ -214,7 +218,7 @@
                 <form method="post" asp-page-handler="Weather">
                     <select required class="drop" name="Country" @Model.selCountry>
                         <option value="">Select A Country</option>
-                        <option value="CA">Canada</option>
+                        <option value="CA">Canada</option> <!--Default-->
                     </select>
                     <select required class="drop" name="City" @Model.selCity>
                         <option value="">Select A City</option>
@@ -223,7 +227,7 @@
                         <option value="montreal">Montreal</option>
                         <option value="gatineau">Gatineau</option>
                         <option value="quebec">Quebec City</option>
-                        <option value="london">London</option>
+                        <option value="london">London</option> <!--Default-->
                         <option value="sarnia">Sarnia</option>
                         <option value="windsor">Windsor</option>
                         <option value="kitchener">Kitchener</option>
@@ -234,7 +238,7 @@
                     </select>
                     <select required class="drop" name="Unit" @Model.selUnit>
                         <option value="">Select A Unit of Measurement</option>
-                        <option value="metric">Metric</option>
+                        <option value="metric">Metric</option> <!--Default-->
                         <option value="imperial">Imperial</option>
                         <option value="kelvin">Kelvin</option>
                     </select>
@@ -291,13 +295,17 @@
                 <hr>
                 <div class="resize-container">
                     <div id="dayTime" class="resize-drag dt">
-                        <h3>Time of Day</h3>
-                        <!--Take From Computer DateTime
-                        Give options of mm/dd/yyyy time
-                        or dd/mm Time or dddd/dd/mm Time Etc.
-                        Can do this by taking in time, month and date seperatly
-                        rearranging in certain ways and letting them select one
-                        OR yes/no to date option and don't let them choose the display-->
+                        <h3>Date and Time</h3>
+                        <div id="dtGrid">
+                            <p id="day">@Model.selDay</p>
+                            <p id="date">@Model.selDate</p>
+                            <p id="month">@Model.selMonth</p>
+                            <p id="year">@Model.selYear</p>
+                            <p id="hour">@Model.selHour</p>
+                            <p id="minute">@Model.selMin</p>
+                            <p id="second">@Model.selSec</p>
+                            <p id="time">@Model.selTime</p>
+                        </div>
                     </div>
                     <div id="photo" class="resize-drag p">
                         <h3>Photos</h3>
@@ -316,11 +324,11 @@
                             <p id="tmp">Currently: @Model.temp</p>
                             <p id="hot">High: @Model.tempHigh</p>
                             <p id="low">Low: @Model.tempLow</p>
-                            <p id="spd">Wind Speed: @Model.windSpeed</p>
+                            <!--<p id="spd">Wind Speed: @Model.windSpeed</p>
                             <p id="dir">Wind Direction: @Model.windText</p>
                             <p id="hmd">Humidity: @Model.humidity%</p>
                             <p id="prs">Pressure: @Model.pressure hPa</p>
-                            <p id="vis">Visibility: @Model.visibility</p>
+                            <p id="vis">Visibility: @Model.visibility</p>-->
                         </div>
                     </div>
                     <div id="news" class="resize-drag n">

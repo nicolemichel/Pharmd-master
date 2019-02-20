@@ -16,39 +16,41 @@ namespace Phramd.Pages
         public List<string> filter = new List<string>();
 
         // DATE TIME \\
+        // COMing from DATEFORMATS Class
         // s = short, n = number
         // day options (number of the month)
         public string selDay;
-        public string sDay = DateTime.Now.ToString("d"); // number
-        public string day = DateTime.Now.ToString("dd"); // number starting with 0
+        public string sDay = Program.DateFormats.sDay; // number
+        public string day = Program.DateFormats.day; // number starting with 0
         // date options (day of week - ie. Friday)
         public string selDate;
-        public string sDate = DateTime.Now.ToString("ddd"); // abbreviated day of week
-        public string date = DateTime.Now.ToString("dddd"); // day of week
+        public string sDate = Program.DateFormats.sDate; // abbreviated day of week
+        public string date = Program.DateFormats.date; // day of week
         // month options
         public string selMonth;
-        public string snMonth = DateTime.Now.ToString("M"); // Month #
-        public string nMonth = DateTime.Now.ToString("MM"); // Month # starting with 0
-        public string sMonth = DateTime.Now.ToString("MMM"); // abbreviated month
-        public string month = DateTime.Now.ToString("MMMM");
+        public string snMonth = Program.DateFormats.snMonth; // Month #
+        public string nMonth = Program.DateFormats.nMonth; // Month # starting with 0
+        public string sMonth = Program.DateFormats.sMonth; // abbreviated month
+        public string month = Program.DateFormats.month;
         // year options
         public string selYear;
-        public string sYear = DateTime.Now.ToString("y"); // 19
-        public string year = DateTime.Now.ToString("yyyy"); // 2019
+        public string sYear = Program.DateFormats.sYear; // 19
+        public string year = Program.DateFormats.year; // 2019
         // time options
         public string selTime;
-        public string sTime = DateTime.Now.ToString("t"); // A/P
-        public string time = DateTime.Now.ToString("tt"); // normal am/pm
+        public string sTime = Program.DateFormats.sTime; // A/P
+        public string time = Program.DateFormats.time; // normal am/pm
         // hour options
         public string selHour;
-        //public string sHour = DateTime.Now.ToString("h"); // 12hr
-        public string hour = DateTime.Now.ToString("hh"); // 12hr starting with 0 (06:00)
-        //public string military = DateTime.Now.ToString("H"); // 24hr
-        public string selMin;
-        public string minutes = DateTime.Now.ToString("mm");
+        public string sHour = Program.DateFormats.sHour; // 12hr
+        public string hour = Program.DateFormats.hour; // 12hr starting with 0 (06:00)
+        public string military = Program.DateFormats.military; // 24hr
+        // minutes
+        public string selMin = Program.DateFormats.selMin;
+        public string minutes = Program.DateFormats.minutes;
         // seconds
         public string selSec;
-        public string seconds = DateTime.Now.ToString("ss");
+        public string seconds = Program.DateFormats.seconds;
 
         
         // WEATHER \\
@@ -387,7 +389,7 @@ namespace Phramd.Pages
         public async Task OnPostWeather(string City, string Country, string Unit)
         {
             display = "grid";
-            // HAVE TO MAKE A DEFAULT - London, ON & Metric.
+            // HAVE TO MAKE A DEFAULT - London, ON & Metric. DONE IN DB NOT DD
 
             // SETTINGS
             Program.Weather.selCity = City;
@@ -488,8 +490,6 @@ namespace Phramd.Pages
                 tempLow = tempLow + "°C";
                 visibility = visibility + " meters";
                 windSpeed = windSpeed + " meters/second";
-
-
             }
             else if (Unit == imperial)
             {
@@ -598,7 +598,7 @@ namespace Phramd.Pages
                     myConn.Open();
 
                     // Put in same order as the SP & Table (maybe change userId to last - since it's a FK ??)
-                    // INSERT DEFAULT VALUES OF LONDON, CANADA AND METRIC
+                    // INSERT DEFAULT VALUES OF LONDON, CANADA AND METRIC - Done in Database????
                     getWeather.Parameters.AddWithValue("@userId", Program.UserDetails.UserID);
                     getWeather.Parameters.AddWithValue("@country", selCountry);
                     getWeather.Parameters.AddWithValue("@city", selCity);
@@ -693,10 +693,67 @@ namespace Phramd.Pages
                     myConn.Close();
                 }
             }
-            // Refresh the settings page @ weather pos on page
+            // Refresh the settings page @ news pos on page
         } //OnPostNews()
-    }
-}
+        public void OnPostDTFormat(string ddDay, string ddDate, string ddMonth, string ddYear,
+            string ddHours, string ddMinutes, string ddSeconds, string ddTime)
+        {
+            display = "grid";
+
+            Program.DateFormats.selDay= ddDay;
+            Program.DateFormats.selDate = ddDate;
+            Program.DateFormats.selMonth = ddMonth;
+            Program.DateFormats.selYear = ddYear;
+            Program.DateFormats.selHour = ddHours;
+            Program.DateFormats.selMin = ddMinutes;
+            Program.DateFormats.selSec = ddSeconds;
+            Program.DateFormats.selTime = ddTime;
+            
+            if(selDay == "dd")
+            {
+               
+            }
+
+            
+            if (Program.UserDetails.UserID == 0) // not logged in
+            {
+                // only display the home page - no settings AKA no settings page to see these options.
+            }
+
+            else
+            {
+                using (SqlConnection myConn = new SqlConnection(Program.Fetch.cs))
+                {
+                    SqlCommand getDTFormats = new SqlCommand
+                    {
+                        Connection = myConn
+                    };
+                    myConn.Open();
+
+                    // Put in same order as the SP & Table (maybe change userId to last - since it's a FK ??)
+                    // INSERT DEFAULT VALUES OF LONDON, CANADA AND METRIC
+                    getDTFormats.Parameters.AddWithValue("@userId", Program.UserDetails.UserID);
+                    getDTFormats.Parameters.AddWithValue("@day", ddDay);
+                    getDTFormats.Parameters.AddWithValue("@date", ddDate);
+                    getDTFormats.Parameters.AddWithValue("@month", ddMonth);
+                    getDTFormats.Parameters.AddWithValue("@year", ddYear);
+                    getDTFormats.Parameters.AddWithValue("@hour", ddHours);
+                    getDTFormats.Parameters.AddWithValue("@minutes", ddMinutes);
+                    getDTFormats.Parameters.AddWithValue("@seconds", ddSeconds);
+                    getDTFormats.Parameters.AddWithValue("@time", ddTime);
+
+
+                    getDTFormats.CommandText = ("[DTFormatSettings]");
+                    getDTFormats.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    getDTFormats.ExecuteNonQuery();
+
+                    myConn.Close();
+                }
+            }
+        } //OnPostNews
+    } // Pagemodel
+} // namespace
 
 
    

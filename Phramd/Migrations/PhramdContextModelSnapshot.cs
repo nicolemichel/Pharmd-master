@@ -47,6 +47,37 @@ namespace Phramd.Migrations
                     b.ToTable("CalendarModel");
                 });
 
+            modelBuilder.Entity("Phramd.Models.DTFormatsDB", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Date");
+
+                    b.Property<string>("Day");
+
+                    b.Property<string>("Hour");
+
+                    b.Property<string>("Minutes");
+
+                    b.Property<string>("Month");
+
+                    b.Property<string>("Seconds");
+
+                    b.Property<string>("Time");
+
+                    b.Property<string>("Year");
+
+                    b.Property<int>("userId");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("DateTimeFormats");
+                });
+
             modelBuilder.Entity("Phramd.Models.NewsDB", b =>
                 {
                     b.Property<int>("id")
@@ -161,6 +192,14 @@ namespace Phramd.Migrations
                     b.HasOne("Phramd.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Phramd.Models.DTFormatsDB", b =>
+                {
+                    b.HasOne("Phramd.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

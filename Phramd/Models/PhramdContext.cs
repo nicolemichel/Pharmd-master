@@ -16,6 +16,7 @@ namespace Phramd.Models
         public DbSet<PhotoAccounts> PhotoAccounts { get; set; }
         public DbSet<WeatherDB> Weather { get; set; }
         public DbSet<NewsDB> News { get; set; }
+        public DbSet<DTFormatsDB> DTFormatsDB { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +25,7 @@ namespace Phramd.Models
             modelBuilder.Entity<PhotoAccounts>().ToTable("PhotoAccounts");
             modelBuilder.Entity<NewsDB>().ToTable("News");
             modelBuilder.Entity<WeatherDB>().ToTable("Weather");
+            modelBuilder.Entity<DTFormatsDB>().ToTable("DateTimeFormats");
         }
     }
 }

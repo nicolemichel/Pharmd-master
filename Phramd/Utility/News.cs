@@ -9,5 +9,6 @@ namespace Phramd.Utility
     {
         public string selCoun { get; set; }
         public string numOfArticles { get; set; }
+        public string selTime { get; set; }
     }
 }

@@ -16,16 +16,16 @@ namespace Phramd.Pages
         public List<string> filter = new List<string>();
 
         // DATE TIME \\
-        // COMing from DATEFORMATS Class
+        // Coming from DATEFORMATS Class
         // s = short, n = number
-        // day options (number of the month)
-        public string selDay;
-        public string sDay = Program.DateFormats.sDay; // number
-        public string day = Program.DateFormats.day; // number starting with 0
         // date options (day of week - ie. Friday)
         public string selDate;
         public string sDate = Program.DateFormats.sDate; // abbreviated day of week
         public string date = Program.DateFormats.date; // day of week
+        // day options (number of the month)
+        public string selDay;
+        public string sDay = Program.DateFormats.sDay; // number
+        public string day = Program.DateFormats.day; // number starting with 0
         // month options
         public string selMonth;
         public string snMonth = Program.DateFormats.snMonth; // Month #
@@ -115,21 +115,6 @@ namespace Phramd.Pages
         public List<string> publishedList;
         public DateTime publishedDate;
        
-        // headlines (timer?)
-        public void Timer(int Time)
-        {
-            Timer tick = new Timer();
-            tick.Elapsed += new ElapsedEventHandler(articleSwitch); // switches article
-            tick.Interval = Time; // time interval for article switch
-            // defualt 15s - set up if for 10 and 20 seconds (dropdown list)
-            tick.Enabled = true; // timer is on
-            tick.AutoReset = true;
-        }
-        private void articleSwitch(object sender, ElapsedEventArgs e)
-        {
-            headline = Program.NewsData.GetHeadline();
-            published = Program.NewsData.GetPublished();
-        } // article switch
 
         public void OnGet()
         {
@@ -483,7 +468,7 @@ namespace Phramd.Pages
             imperial = Program.Weather.imperial;
             kelvin = Program.Weather.kelvin;
 
-            if (Unit == metric) // Metric
+            if (Unit == "Metric") // Metric
             {
                 temp = temp + "°C";
                 tempHigh = tempHigh + "°C";
@@ -491,7 +476,7 @@ namespace Phramd.Pages
                 visibility = visibility + " meters";
                 windSpeed = windSpeed + " meters/second";
             }
-            else if (Unit == imperial)
+            else if (Unit == "Imperial")
             {
                 temp = temp + "°F";
                 tempHigh = tempHigh + "°F";
@@ -621,6 +606,7 @@ namespace Phramd.Pages
             // SETTINGS
             Program.News.selCoun = Coun;
             Program.News.numOfArticles = Articles;
+            Program.News.selTime = Convert.ToString(Time);
 
             // Pulling in information from the API
             await Program.Fetch.GrabNews(Coun, Articles);
@@ -632,6 +618,7 @@ namespace Phramd.Pages
             // Retrieve information from News Class
             selCoun = Program.News.selCoun;
             numOfArticles = Program.News.numOfArticles;
+            selTime = Program.News.selTime;
 
             // Grab information from NewsDataClass
             headline = Program.NewsData.headline;
@@ -656,12 +643,11 @@ namespace Phramd.Pages
                 published = published.Replace("Z", "");
                 publishedDate = DateTime.ParseExact(published, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture); // stops the next line from taking the default time value
                 // ^ date format has to be in the exact format as how it is taken in - then you can change it after the fact
-                published = publishedDate.ToString("dddd, MMMM dd yyyy HH:mm tt");
+                published = publishedDate.ToString("dddd, MMMM dd yyyy HH:mm tt (zzz") + " time zone difference.)";
                 Program.NewsData.AddPublished(published);
             }
             headline = Program.NewsData.GetHeadline();
             published = Program.NewsData.GetPublished();
-            Timer(Time);
 
             if (Program.UserDetails.UserID == 0) // not logged in
             {
@@ -700,7 +686,7 @@ namespace Phramd.Pages
         {
             display = "grid";
 
-            Program.DateFormats.selDay= ddDay;
+            Program.DateFormats.selDay = ddDay;
             Program.DateFormats.selDate = ddDate;
             Program.DateFormats.selMonth = ddMonth;
             Program.DateFormats.selYear = ddYear;
@@ -708,13 +694,7 @@ namespace Phramd.Pages
             Program.DateFormats.selMin = ddMinutes;
             Program.DateFormats.selSec = ddSeconds;
             Program.DateFormats.selTime = ddTime;
-            
-            if(selDay == "dd")
-            {
-               
-            }
 
-            
             if (Program.UserDetails.UserID == 0) // not logged in
             {
                 // only display the home page - no settings AKA no settings page to see these options.

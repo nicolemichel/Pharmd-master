@@ -10,23 +10,23 @@ namespace Phramd.Utility
     {
         // s = short, n = number
         // DATE
-        // day options (number of the month)
-        public string selDay { get; set; }
-        public string sDay = DateTime.Today.ToString("%d"); // number
-        public string day = DateTime.Now.ToString("dd"); // number starting with 0
         // date options (day of week - ie. Friday)
         public string selDate { get; set; }
-        public string sDate = DateTime.Now.ToString("ddd"); // abbreviated day of week
+        public string sDate = DateTime.Now.ToString("ddd") + "."; // abbreviated day of week
         public string date = DateTime.Now.ToString("dddd"); // day of week
+        // day options (number of the month)
+        public string selDay { get; set; }
+        public string sDay = DateTime.Now.ToString("%d"); // number
+        public string day = DateTime.Now.ToString("dd"); // number starting with 0
         // month options
         public string selMonth { get; set; }
-        public string snMonth = DateTime.Now.ToString("%M"); // Month #
-        public string nMonth = DateTime.Now.ToString("MM"); // Month # starting with 0
-        public string sMonth = DateTime.Now.ToString("MMM"); // abbreviated month
+        public string snMonth = DateTime.Now.ToString("%M") + "."; // Month #
+        public string nMonth = DateTime.Now.ToString("MM") + "."; // Month # starting with 0
+        public string sMonth = DateTime.Now.ToString("MMM") + "."; // abbreviated month
         public string month = DateTime.Now.ToString("MMMM");
         // year options
         public string selYear { get; set; }
-        public string sYear = DateTime.Now.ToString("%y"); // 19
+        public string sYear =  "." + DateTime.Now.ToString("%y"); // 19
         // 019 looks stupid not an option
         public string year = DateTime.Now.ToString("yyyy"); // 2019
 
@@ -40,7 +40,7 @@ namespace Phramd.Utility
         public string sHour = DateTime.Now.ToString("%h"); // 12hr
         public string hour = DateTime.Now.ToString("hh"); // 12hr starting with 0 (06:00)
         public string military = DateTime.Now.ToString("%H"); // 24hr
-        // not giving a military starting with 0 option (looks stupid)
+        // not giving a military starting with 0 option (00:00 - 23:00 - time doesn't start at 00:00 everyday...)
         // minutes - don't want to give the option to have 8:5 AM (looks stupid)
         public string selMin { get; set; }
         public string minutes = DateTime.Now.ToString("mm");

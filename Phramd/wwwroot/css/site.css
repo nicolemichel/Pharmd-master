@@ -407,6 +407,8 @@ hr {
 .resize-drag {
     background: rgba(96, 96, 96, 0.8);
     color: #fff;
+    justify-content: center;
+    overflow: hidden;
     position: static;
     font-size: 100%;
     font-family: Arial;
@@ -423,57 +425,97 @@ hr {
     user-select: none;
 }
 /* have everything hidden & toggel show when they save */
-.dt {
-    /* date time drag/resize class */
-    z-index: 3;
-    text-align: center;
-    max-width: calc(50% - 5px);
-    max-height: calc(50% - 5px);
+.d {
+    /* date drag/resize class */
+    z-index: 4;
+    height: 70px;
+    min-width: 100px;
+    max-width: calc(25% - 5px);
+    max-height: 70px;
 }
-#dtGrid {
-    display: grid;
-    width: auto;
-    height: auto;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: minmax(auto, auto);
-    grid-template-areas: 
-        "day dte mon yar" 
-        "hur min sec tim";
-}
-    #day{
+    #dateGrid {
         display: grid;
+        justify-content: center;
+        text-align: center;
+        width: auto;
+        height: auto;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(auto, auto);
+        grid-template-areas: 
+            "dte mon day yar"
+    }
+        #date{
+            display: grid;
+            grid-area: dte;
+            height: auto;
+            width: auto;
+        }
+        #month{
+            display: grid;
+            grid-area: mon;
+            height: auto;
+            width: auto;
+        }
+        #day{
+            display: grid;
             grid-area: day;
-    }
-    #date{
+            height: auto;
+            width: auto;
+        }
+        #year{
+            display: grid;
+            grid-area: yar;
+            height: auto;
+            width: auto;
+        }
+.t {
+    /* time drag/resize class */
+    z-index: 3;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 245%;
+    min-height: 100px;
+    min-width: 200px;
+    max-width: calc(25% - 5px);
+    max-height: calc(25% - 5px);
+}
+    #timeGrid {
         display: grid;
-        grid-area: dte;
+        align-content: center;
+        text-align: center;
+        overflow-wrap: break-word;
+        width: auto;
+        height: auto;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(auto, auto);
+        grid-template-areas: 
+            "hur min sec tim";
     }
-    #month{
-        display: grid;
-        grid-area: mon;
-    }
-    #year{
-        display: grid;
-        grid-area: yar;
-    }
-    #hour{
-        display: grid;
-        grid-area: hur;
-    }
-    #minute{
-        display: grid;
-        grid-area: min;
-    }
-    #second{
-        display: grid;
-        grid-area: sec;
-    }
-    #time{
-        display: grid;
-        grid-area: tim;
-    }
+        #hour{
+            display: grid;
+            grid-area: hur;
+            height: auto;
+            width: auto;
+        }
+        #minute{
+            display: grid;
+            grid-area: min;
+            height: auto;
+            width: auto;
+        }
+        #second{
+            display: grid;
+            grid-area: sec;
+            height: auto;
+            width: auto;
+        }
+        #time{
+            display: grid;
+            grid-area: tim;
+            height: auto;
+            width: auto;
+        }
 .p {
-    /* photo drag/resize class */
+/* photo drag/resize class */
     z-index: 0;
     position: absolute;
     width: inherit;
@@ -482,16 +524,17 @@ hr {
     margin: 0px;
 }
 .c {
-    /* calendar drag/resize class */
-    z-index: 3;
+/* calendar drag/resize class */
+    z-index: 6;
     max-width: calc(50% - 5px);
     max-height: calc(50% - 5px);
 }
 .w {
-    /* weather drag/resize class */
-    z-index: 3;
+/* weather drag/resize class */
+    z-index: 7;
+    justify-content: flex-start;
     min-width: 502px;
-    min-height: 210px;
+    min-height: 220px;
     max-width: calc(50% - 5px);
     max-height: calc(50% - 5px);
     /*
@@ -615,8 +658,9 @@ hr {
             width: auto;
         }
 .n {
-    /* news drag/resize class */
-    z-index: 3;
+/* news drag/resize class */
+    z-index: 8;
+    justify-content: center;
     min-width: 400px;
     min-height: 200px;
     max-width: calc(50% - 5px);
@@ -625,6 +669,7 @@ hr {
    #newsGrid {
     display: grid;
     text-align: center;
+    align-content: center;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: minmax(50px, auto);
     grid-template-areas:

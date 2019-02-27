@@ -128,52 +128,54 @@
                 <hr>
                 <form method="post" asp-page-handler="DTFormat">
                     <p>Date</p>
-                    <select class="drop" name="ddDay" @Model.selDay>
-                        <option value="">Day</option>
-                        <option value="d">@Model.sDay</option>
-                        <option value="dd">@Model.day</option> <!--Default-->
-                    </select>
                     <select class="drop" name="ddDate" @Model.selDate>
                         <option value="">Date</option>
-                        <option value="ddd">@Model.sDate</option> <!--Default-->
-                        <option value="dddd">@Model.date</option>
+                        <option value="@Model.sDate">@Model.sDate</option> <!--Default-->
+                        <option value="@Model.date">@Model.date</option>
                     </select>
                     <select class="drop" name="ddMonth" @Model.selMonth>
                         <option value="">Month</option>
-                        <option value="M">@Model.snMonth</option>
-                        <option value="MM">@Model.nMonth</option>
-                        <option value="MMM">@Model.sMonth</option>
-                        <option value="MMMM">@Model.month</option> <!--Default-->
+                        <option value="@Model.snMonth">@Model.snMonth</option>
+                        <option value="@Model.nMonth">@Model.nMonth</option>
+                        <option value="@Model.sMonth">@Model.sMonth</option>
+                        <option value="@Model.month">@Model.month</option> <!--Default-->
+                    </select>
+                    <select class="drop" name="ddDay" @Model.selDay>
+                        <option value="">Day</option>
+                        <option value="@Model.sDay">@Model.sDay</option>
+                        <option value="@Model.day">@Model.day</option> <!--Default-->
                     </select>
                     <select class="drop" name="ddYear" @Model.selYear>
                         <option value="">Year</option>
-                        <option value="y">@Model.sYear</option>
-                        <option value="yyyy">@Model.year</option> <!--Default-->
+                        <option value="@Model.sYear">@Model.sYear</option>
+                        <option value="@Model.year">@Model.year</option> <!--Default-->
                     </select>
-                <br />
-                <br />
+                    <br />
+                    <br />
+                    <br />
                     <p>Time</p>
-                    <select required class="drop" name="ddHours" @Model.selHour>
+                    <select class="drop" name="ddHours" @Model.selHour>
                         <option value="">Hours</option>
-                        <option value="h">@Model.sHour (12hr)</option>
-                        <option value="hh">@Model.hour (012hr)</option> <!--Default-->
-                        <option value="H">@Model.military (24hr)</option>
+                        <option value="@Model.sHour">@Model.sHour (12hr)</option>
+                        <option id="zeroHour" value="@Model.hour">@Model.hour (012hr)</option> <!--Default-->
+                        <option value="@Model.military">@Model.military (24hr)</option>
                     </select>
-                    <select required class="drop" name="ddMinutes" @Model.selMin>
+                    <select class="drop" name="ddMinutes" @Model.selMin>
                         <option value="">Minutes</option>
-                        <option value="mm">@Model.minutes</option> <!--Default-->
+                        <option value="@Model.minutes">@Model.minutes</option> <!--Default-->
                     </select>
-                    <select required class="drop" name="ddSeconds" @Model.selSec>
+                    <select class="drop" name="ddSeconds" @Model.selSec>
                         <option value="">Seconds</option>
-                        <option value="ss">@Model.seconds</option> <!--Default-->
+                        <option value="@Model.seconds">@Model.seconds</option> <!--Default-->
                     </select>
                     <select class="drop" name="ddTime" @Model.selTime>
                         <option value="">Time</option>
-                        <option value="t">@Model.sTime</option>
-                        <option value="tt">@Model.time</option> <!--Default-->
+                        <option value="@Model.sTime">@Model.sTime</option>
+                        <option value="@Model.time">@Model.time</option> <!--Default-->
                     </select>
                     <br />
-                    <button type="submit">Save Date and Time</button>
+                    <button class="noRefresh" type="submit">Save Date and Time</button>
+                    <button id="noRefresh" class="removeButton" method="post" asp-page-handler="RemoveDT" type="submit">Remove</button>
                     <br />
                     <br />
                 </form>
@@ -216,34 +218,35 @@
                 <h3>Weather</h3>
                 <hr>
                 <form method="post" asp-page-handler="Weather">
-                    <select required class="drop" name="Country" @Model.selCountry>
+                    <select required class="drop" name="Country" value="@Model.selCountry">
                         <option value="">Select A Country</option>
                         <option value="CA">Canada</option> <!--Default-->
                     </select>
-                    <select required class="drop" name="City" @Model.selCity>
+                    <select required class="drop" name="City" value="@Model.selCity">
                         <option value="">Select A City</option>
-                        <option value="toronto">Toronto</option>
-                        <option value="ottawa">Ottawa</option>
-                        <option value="montreal">Montreal</option>
-                        <option value="gatineau">Gatineau</option>
-                        <option value="quebec">Quebec City</option>
-                        <option value="london">London</option> <!--Default-->
-                        <option value="sarnia">Sarnia</option>
-                        <option value="windsor">Windsor</option>
-                        <option value="kitchener">Kitchener</option>
-                        <option value="kingston">Kingston</option>
-                        <option value="oshawa">Oshawa</option>
-                        <option value="hamilton">Hamilton</option>
-                        <option value="guelph">Guelph</option>
+                        <option value="Toronto">Toronto</option>
+                        <option value="Ottawa">Ottawa</option>
+                        <option value="Montreal">Montreal</option>
+                        <option value="Gatineau">Gatineau</option>
+                        <option value="Quebec">Quebec City</option>
+                        <option value="London">London</option> <!--Default-->
+                        <option value="Sarnia">Sarnia</option>
+                        <option value="Windsor">Windsor</option>
+                        <option value="Kitchener">Kitchener</option>
+                        <option value="Kingston">Kingston</option>
+                        <option value="Oshawa">Oshawa</option>
+                        <option value="Hamilton">Hamilton</option>
+                        <option value="Guelph">Guelph</option>
                     </select>
-                    <select required class="drop" name="Unit" @Model.selUnit>
+                    <select required class="drop" name="Unit" value="@Model.selUnit">
                         <option value="">Select A Unit of Measurement</option>
-                        <option value="metric">Metric</option> <!--Default-->
-                        <option value="imperial">Imperial</option>
-                        <option value="kelvin">Kelvin</option>
+                        <option value="Metric">Metric</option> <!--Default-->
+                        <option value="Imperial">Imperial</option>
+                        <option value="Kelvin">Kelvin</option>
                     </select>
                     <br />
-                    <button type="submit">Save Weather</button>
+                    <button class="noRefresh" type="submit">Save Weather</button>
+                    <button id="noRefresh" class="removeButton" method="post" asp-page-handler="RemoveWeather" type="submit">Remove</button>
                 </form>
                 <br />
                 <br />
@@ -252,8 +255,8 @@
                 <form method="post" asp-page-handler="News">
                     <select required class="drop" name="Coun" @Model.selCoun>
                         <option value="">Select A Country</option>
-                        <option value="ca">Canada</option>
-                        <option value="us">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="US">United States</option>
                     </select>
                     <select required class="drop" name="Articles" @Model.numOfArticles>
                         <option value="">Amount of Articles Wanted</option>
@@ -268,7 +271,8 @@
                         <option value="20000">20 seconds</option>
                     </select>
                     <br />
-                    <button type="submit">Save News</button>
+                    <button class="noRefresh" type="submit">Save News</button>
+                    <button id="noRefresh" class="removeButton" method="post" asp-page-handler="RemoveNews" type="submit">Remove</button>
                 </form>
                 <br />
                 <br />
@@ -277,34 +281,38 @@
                 <form method="post" asp-page-handler="ScreenSize">
                     <select required class="drop" name="Size">
                         <option value="">Select Screen Size</option>
-                        <option value="912">9 - 12 inch</option>
-                        <option value="1418">14 - 18 inch</option>
-                        <option value="2123">21 - 23 inch</option>
+                        <option value="9-12 inch">9 - 12 inch</option>
+                        <option value="14-18 inch">14 - 18 inch</option>
+                        <option value="21-23 inch">21 - 23 inch</option>
                     </select>
                     <select required class="drop" name="Size">
                         <option value="">Select Screen Layout</option>
-                        <option value="landscape">Landscape</option>
-                        <option value="portrait">Portrait</option>
+                        <option value="Landscape">Landscape</option>
+                        <option value="Portrait">Portrait</option>
                     </select>
                     <br />
-                    <button type="submit">Save Screen Settings</button>
+                    <button class="noRefresh" type="submit">Save Screen Settings</button>
                 </form>
                 <br />
                 <br />
+                <!--MAKE A PARCIAL?????-->
                 <h3>Screen Layout</h3>
                 <hr>
-                <div class="resize-container">
-                    <div id="dayTime" class="resize-drag dt">
-                        <h3>Date and Time</h3>
-                        <div id="dtGrid">
-                            <p id="day">@Model.selDay</p>
-                            <p id="date">@Model.selDate</p>
-                            <p id="month">@Model.selMonth</p>
-                            <p id="year">@Model.selYear</p>
-                            <p id="hour">@Model.selHour</p>
-                            <p id="minute">@Model.selMin</p>
-                            <p id="second">@Model.selSec</p>
-                            <p id="time">@Model.selTime</p>
+                <div id="noRefresh" class="resize-container">
+                    <div id="today" class="resize-drag d">
+                        <div id="dateGrid">
+                            <p id="date">@Program.DateFormats.selDate&nbsp;</p>
+                            <p id="month">&nbsp;@Program.DateFormats.selMonth</p>
+                            <p id="day">@Program.DateFormats.selDay</p>
+                            <p id="year">@Program.DateFormats.selYear</p>
+                        </div>
+                    </div>
+                    <div id="clock" class="resize-drag t">
+                        <div id="timeGrid">
+                            <p id="hour">@Program.DateFormats.selHour:</p>
+                            <p id="minute">@Program.DateFormats.selMin</p>
+                            <p id="second">:@Program.DateFormats.selSec</p>
+                            <p id="time"> &nbsp; @Program.DateFormats.selTime</p>
                         </div>
                     </div>
                     <div id="photo" class="resize-drag p">
@@ -332,7 +340,7 @@
                         </div>
                     </div>
                     <div id="news" class="resize-drag n">
-                        <div id="newsGrid" style="display: @Model.display" onload="article(@Model.headlineList) && date(@Model.publishedList)">
+                        <div id="newsGrid" style="display: @Model.display" onload="Next(@Model.headlineList, @Model.publishedList)">
                             <p id="headline">@Model.headline</p>
                             <p id="published">@Model.published</p>
                         </div>

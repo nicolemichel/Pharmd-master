@@ -9,26 +9,29 @@ window.onclick = function (event) {
 
 // Only show selected email for calendar
 $(function () {
-        $(".gmailCal").on("click", function () {
-            $(".hiddenGmail").toggle()
-            $(".hiddenApple").toggle(this.hidden)
-            $(".hiddenMicro").toggle(this.hidden)
-        })
-        $(".appleCal").on("click", function () {
-            $(".hiddenApple").toggle()
-            $(".hiddenMicro").toggle(this.hidden)
-            $(".hiddenGmail").toggle(this.hidden)
-        })
-        $(".microCal").on("click", function () {
-            $(".hiddenMicro").toggle()
-            $(".hiddenApple").toggle(this.hidden)
-            $(".hiddenGmail").toggle(this.hidden)
-        })
-        $(".gPhoto").on("click", function () {
-            $(".hiddenGPhoto").toggle()
-        })
-    }
-)
+    $(".gmailCal").on("click", function (e) {
+        $(".hiddenGmail").toggle()
+        $(".hiddenApple").toggle(this.hidden)
+        $(".hiddenMicro").toggle(this.hidden)
+
+    })
+    $(".appleCal").on("click", function (e) {
+        $(".hiddenApple").toggle()
+        $(".hiddenMicro").toggle(this.hidden)
+        $(".hiddenGmail").toggle(this.hidden)
+        e.preventDefault();
+    })
+    $(".microCal").on("click", function (e) {
+        $(".hiddenMicro").toggle()
+        $(".hiddenApple").toggle(this.hidden)
+        $(".hiddenGmail").toggle(this.hidden)
+        e.preventDefault();
+    })
+    $(".gPhoto").on("click", function (e) {
+        $(".hiddenGPhoto").toggle()
+        e.preventDefault();
+    })
+});
 
 // Logout/No Account Slider
 // SHOULD MAKE THE HOME PAGE
@@ -46,9 +49,8 @@ function carousel() {
     setTimeout(carousel, 5000);
 }
 
-// News 
-// Better to have slider or timer?
-// Movie Marvel Cast Page - Images Array ????
-
+$("noRefresh").click(function (e) {
+    e.preventDefault();
+});
 
 

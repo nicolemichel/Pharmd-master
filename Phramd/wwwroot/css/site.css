@@ -622,7 +622,7 @@ hr {
             width: auto;
         }
         /*not displaying for now*/
-        #spd {
+       /* #spd {
             display: grid;
             grid-area: spd;
             text-align: left;
@@ -656,7 +656,7 @@ hr {
             text-align: right;
             height: auto;
             width: auto;
-        }
+        }*/
 .n {
 /* news drag/resize class */
     z-index: 8;

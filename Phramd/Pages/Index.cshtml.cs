@@ -126,7 +126,22 @@ namespace Phramd.Pages
         {
             Program.UserDetails.CheckID(username, password);
             Program.UserDetails.EmailChanges(Program.UserDetails.UserID);
-            Program.UserDetails.PhotoChanges(Program.UserDetails.UserID); 
+            Program.UserDetails.PhotoChanges(Program.UserDetails.UserID);
+            // Bring back DateTime, Weather and News
+            // How?
+            if (Program.WeatherData != null)
+            {
+                
+            }
+           if (Program.NewsData != null)
+            {
+
+            }
+           if (Program.DateFormats != null)
+            {
+                OnPostDTFormat(selDay, selDate, selMonth, selYear,
+                selHour, selMin, selSec, selTime);
+            }
         }
 
         public void OnPostLogout()
@@ -496,7 +511,7 @@ namespace Phramd.Pages
             // When Imperial is selected the input string is not the correct type & only sometimes ??
             // Break down into only N/NE/E/SE/S/SW/W/NW ?? 
             // Take out decimal values?
-            double windTemp = Convert.ToDouble(windDir);
+            /*double windTemp = Convert.ToDouble(windDir);
             switch (windTemp)
             {
                 case double windDir when (windDir >= 348.75 && windDir <= 11.25):
@@ -565,7 +580,7 @@ namespace Phramd.Pages
                     break;
                 default:
                     break;
-            } //windTemp() - Wind Direction
+            } //windTemp() - Wind Direction*/
 
             if (Program.UserDetails.UserID == 0) // not logged in
             {
@@ -637,7 +652,7 @@ namespace Phramd.Pages
                 headline = headline.Replace("\"", "");
                 Program.NewsData.AddHeadline(headline);
                 publishedList = jNinja.GetDetails("\"publishedAt\"");
-                published = publishedList[0];
+                published = publishedList[i];
                 published = published.Replace("\"", "");
                 published = published.Replace("T", " ");
                 published = published.Replace("Z", "");
@@ -711,7 +726,6 @@ namespace Phramd.Pages
                     myConn.Open();
 
                     // Put in same order as the SP & Table (maybe change userId to last - since it's a FK ??)
-                    // INSERT DEFAULT VALUES OF LONDON, CANADA AND METRIC
                     getDTFormats.Parameters.AddWithValue("@userId", Program.UserDetails.UserID);
                     getDTFormats.Parameters.AddWithValue("@day", ddDay);
                     getDTFormats.Parameters.AddWithValue("@date", ddDate);
@@ -721,7 +735,6 @@ namespace Phramd.Pages
                     getDTFormats.Parameters.AddWithValue("@minutes", ddMinutes);
                     getDTFormats.Parameters.AddWithValue("@seconds", ddSeconds);
                     getDTFormats.Parameters.AddWithValue("@time", ddTime);
-
 
                     getDTFormats.CommandText = ("[DTFormatSettings]");
                     getDTFormats.CommandType = System.Data.CommandType.StoredProcedure;

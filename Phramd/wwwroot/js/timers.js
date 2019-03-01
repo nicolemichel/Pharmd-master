@@ -65,51 +65,38 @@ function UpdateTime() {
 // Better to have slider or timer?
 // C# Timer is working, just have to page refresh - just set up a js refresh for that div???
 // Have to bring in the time selected from the drop down (or take away the time choice/only allow them 15 seconds)
-// Movie Marvel Cast Page - Images Array ????
-// Same as slider from the home page with a switch for time amount
-Program.NewsData.headlines = parseInt(articleCount);
-Program.NewsData.headline = article;
-Program.NewsData.publishDates = parseInt(dateCount);
-Program.NewsData.published = date;
-Program.News.selTime = timeAmount;
+// Same as slider from the home page with a switch for time amount???
+// headlines = list, headline = pos in list - need to incriment the pos after the selected time amount
+let headlines = [];
+let publishDates = [];
+let selTime;
 
-let newsTimer = setInterval('Next()', timeAmount);
-
-pos = 0;
-articleCount = 0;
-dateCount = 0;
-function Next(_articleCount, _dateCount) {
-    UpdateHeadline();
-    pos++;
-    articleCount++;
-    dateCount++;
-    if (pos === articleCount) {
-        articleCount = 0;
-        dateCount = 0;
-    }
+function SetData(_headlines, _publishDates, _selTime) {
+    headlines = _headlines;
+    publishDates = _publishDates;
+    selTime = _selTime;
 }
 
-/*var nextHeadline = 0;
-var nextPublished = 0;
-function Next(_articleCount, _dateCount) {
-    var i;
-    var x = document.getElementById('newsGrid');
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-    }
-    nextHeadline++;
-    nextPublished++;
-    if (nextHeadline === x.length) {
-        nextHeadline = 1;
-        nextPublished = 1;
+let article = 0;
+let date = 0;
+
+let newsTimer = setInterval('Next()', selTime);
+
+function Next() {
+    article++;
+    date++;
+    
+    if (article === headlines.length) {
+        article = 0;
+        date = 0;
     }
     UpdateHeadline();
-}*/
+}
 
 let thisHeadline = document.getElementById('headline');
 let thisPublished = document.getElementById('published');
 
 function UpdateHeadline() {
-    thisHeadline.innerHTML = nextHeadline;
-    thisPublished.innerHTML = nextPublished;
+    thisHeadline.innerHTML = headlines[article];
+    thisPublished.innerHTML = published[date];
 }

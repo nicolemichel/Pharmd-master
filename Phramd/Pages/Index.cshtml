@@ -218,7 +218,7 @@
                 <h3>Weather</h3>
                 <hr>
                 <form method="post" asp-page-handler="Weather">
-                    <select required class="drop" name="Country" value="@Model.selCountry">
+                    <select class="drop" name="Country" value="@Model.selCountry">
                         <option value="">Select A Country</option>
                         <option value="CA">Canada</option> <!--Default-->
                     </select>
@@ -245,7 +245,7 @@
                         <option value="Kelvin">Kelvin</option>
                     </select>
                     <br />
-                    <button class="noRefresh" type="submit">Save Weather</button>
+                    <button class="noRefresh" type="submit" >Save Weather</button>
                     <button id="noRefresh" class="removeButton" method="post" asp-page-handler="RemoveWeather" type="submit">Remove</button>
                 </form>
                 <br />
@@ -255,8 +255,8 @@
                 <form method="post" asp-page-handler="News">
                     <select required class="drop" name="Coun" @Model.selCoun>
                         <option value="">Select A Country</option>
-                        <option value="CA">Canada</option>
-                        <option value="US">United States</option>
+                        <option value="ca">Canada</option>
+                        <option value="us">United States</option>
                     </select>
                     <select required class="drop" name="Articles" @Model.numOfArticles>
                         <option value="">Amount of Articles Wanted</option>
@@ -346,7 +346,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit">Save Layout</button>
+                <button type="submit" onsubmit="SetData(@Program.NewsData.headlines, @Program.NewsData.publishDates, @Program.News.selTime)">Save Layout</button>
                 <br />
                 <br />
                 <br />

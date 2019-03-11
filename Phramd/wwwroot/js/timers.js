@@ -62,41 +62,19 @@ function UpdateTime() {
 
 
 // News 
-// Better to have slider or timer?
-// C# Timer is working, just have to page refresh - just set up a js refresh for that div???
-// Have to bring in the time selected from the drop down (or take away the time choice/only allow them 15 seconds)
-// Same as slider from the home page with a switch for time amount???
-// headlines = list, headline = pos in list - need to incriment the pos after the selected time amount
-let headlines = [];
-let publishDates = [];
-let selTime;
+var index = 0;
 
-function SetData(_headlines, _publishDates, _selTime) {
-    headlines = _headlines;
-    publishDates = _publishDates;
-    selTime = _selTime;
-}
-
-let article = 0;
-let date = 0;
-
-let newsTimer = setInterval('Next()', selTime);
-
-function Next() {
-    article++;
-    date++;
-    
-    if (article === headlines.length) {
-        article = 0;
-        date = 0;
+newsSlider();
+function newsSlider() {
+    var i;
+    var y = document.getElementsByClassName("newsSlider");
+    for (i = 0; i < y.length; i++) {
+        y[i].style.display = "none";
     }
-    UpdateHeadline();
+    index++;
+    if (index > y.length) { index = 1 }
+    y[index - 1].style.display = "block";
+    setTimeout(newsSlider, 15000);
 }
 
-let thisHeadline = document.getElementById('headline');
-let thisPublished = document.getElementById('published');
 
-function UpdateHeadline() {
-    thisHeadline.innerHTML = headlines[article];
-    thisPublished.innerHTML = published[date];
-}

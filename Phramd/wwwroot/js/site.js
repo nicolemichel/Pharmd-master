@@ -49,16 +49,44 @@ function carousel() {
     setTimeout(carousel, 5000);
 }
 
-// prevents page refresh/reload but doesn't allow button click
-/*$(".noRefresh").click(function (e) {
-    e.preventDefault();
-});*/
+function ClearPhotos() {
+    document.getElementById("gPhotoText").value = "";
+}
 
-// Remember users selections from drop down(dd)
-/*var as = document.form1.ddlViewBy.value;
-var e = document.getElementById("ddlViewBy");
-var strUser = e.options[e.selectedIndex].value;
-var value = document.getElementById("ddlViewBy").value;*/
+function ClearDT() {
+    document.getElementById("dropDate").value = "";
+    doument.getElementById("dropDate").text = "Date";
+    document.getElementById("dropMonth").value = "";
+    doument.getElementById("dropMonth").text = "Month";
+    document.getElementById("dropDay").value = "";
+    doument.getElementById("dropDay").text = "Day";
+    document.getElementById("dropYear").value = "";
+    doument.getElementById("dropYear").text = "Year";
+    document.getElementById("dropHour").value = "";
+    doument.getElementById("dropHour").text = "Hour";
+    document.getElementById("dropMin").value = "";
+    doument.getElementById("dropMin").text = "Minutes";
+    document.getElementById("dropSec").value = "";
+    doument.getElementById("dropSec").text = "Seconds";
+    document.getElementById("dropAP").value = "";
+    doument.getElementById("dropAP").text = "Time";
+}
 
+function ClearWeather() {
+    document.getElementById("country").value = "";
+    document.getElementById("country").text = "Country";
+    document.getElementById("city").value = "";
+    document.getElementById("city").text = "City";
+    document.getElementById("unit").value = "";
+    document.getElementById("unit").text = "Unit of Measurement";
+}
 
-var selName = $('.drop').find(":selected").text();
+function ClearNews() {
+    document.getElementById("coun").value = "";
+    document.getElementById("coun").text = "Country";
+    document.getElementById("article").value = "";
+    document.getElementById("article").text = "Articles";
+    document.getElementById("dropTime").value = "";
+    document.getElementById("dropTime").text = "Time to Read";
+}
+

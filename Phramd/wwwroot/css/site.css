@@ -474,7 +474,7 @@ hr {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 245%;
     min-height: 100px;
-    min-width: 200px;
+    min-width: 235px;
     max-width: calc(25% - 5px);
     max-height: calc(25% - 5px);
 }
@@ -660,32 +660,22 @@ hr {
 .n {
 /* news drag/resize class */
     z-index: 8;
-    justify-content: center;
+    position: static;
     min-width: 400px;
     min-height: 200px;
     max-width: calc(50% - 5px);
     max-height: calc(50% - 5px);
 }
-   #newsGrid {
-    display: grid;
-    text-align: center;
-    align-content: center;
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: minmax(50px, auto);
-    grid-template-areas:
-        "hdl hdl"
-        "pbl pbl";
-   }
         #headline {
-            display: grid;
-            grid-area: hdl;
             height: auto;
             width: auto;
         }
         #published {
-            display: grid;
-            grid-area: pbl;
             height: auto;
             width: auto;
         }
-
+        .newsSlider{
+            text-align: center;
+            align-content: center;
+            justify-content: center;
+        }

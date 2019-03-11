@@ -14,6 +14,10 @@ namespace Phramd.Pages
         JsonNinja listNinja;
         public string display = "grid";
         public List<string> filter = new List<string>();
+        // r = remember
+        public List<string> rDT = new List<string>();
+        public List<string> rNews = new List<string>();
+        public List<string> rWeather = new List<string>();
 
         // DATE TIME \\
         // Coming from DATEFORMATS Class
@@ -37,7 +41,7 @@ namespace Phramd.Pages
         public string sYear = Program.DateFormats.sYear; // 19
         public string year = Program.DateFormats.year; // 2019
         // time options
-        public string selTime;
+        public string selAP;
         public string sTime = Program.DateFormats.sTime; // A/P
         public string time = Program.DateFormats.time; // normal am/pm
         // hour options
@@ -114,6 +118,7 @@ namespace Phramd.Pages
         public List<string> publishDates;
         public List<string> publishedList;
         public DateTime publishedDate;
+        public string selTime;
        
 
         public void OnGet()
@@ -131,22 +136,38 @@ namespace Phramd.Pages
             // How?
             if (Program.WeatherData != null)
             {
-                
+                WeatherChanges(@Program.UserDetails.UserID);
+
             }
            if (Program.NewsData != null)
             {
+                NewsChanges(@Program.UserDetails.UserID);
 
             }
            if (Program.DateFormats != null)
             {
-                OnPostDTFormat(selDay, selDate, selMonth, selYear,
-                selHour, selMin, selSec, selTime);
+                DTChanges(@Program.UserDetails.UserID); 
+                
             }
         }
 
         public void OnPostLogout()
         {
             Program.UserDetails.UserID = 0;
+            Program.DateFormats.selDay = null;
+            Program.DateFormats.selDate = null;
+            Program.DateFormats.selMonth = null;
+            Program.DateFormats.selYear = null;
+            Program.DateFormats.selHour = null;
+            Program.DateFormats.selMin = null;
+            Program.DateFormats.selSec = null;
+            Program.DateFormats.selAP = null;
+            Program.Weather.selCountry = null;
+            Program.Weather.selCity = null;
+            Program.Weather.selUnit = null;
+            Program.News.selCoun = null;
+            Program.News.selTime = null;
+            Program.News.numOfArticles = null;
         }
 
         public void OnPostNewUser(string username, string email, string password)
@@ -614,6 +635,64 @@ namespace Phramd.Pages
             }
             // Refresh the settings page @ weather pos on page
         } //OnPostWeather()
+        public void WeatherChanges(int UserID)
+        {
+            using (SqlConnection myConn = new SqlConnection(Program.Fetch.cs))
+            {
+                SqlCommand returnWeather = new SqlCommand();
+                returnWeather.Connection = myConn;
+                myConn.Open();
+
+                returnWeather.Parameters.AddWithValue("@userId", Program.UserDetails.UserID);
+                returnWeather.CommandText = ("[spReturnWeather]");
+                returnWeather.CommandType = System.Data.CommandType.StoredProcedure;
+                using (SqlDataReader reader = returnWeather.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        rWeather.Add(reader.GetString(0)); // country
+                        rWeather.Add(reader.GetString(1)); // city
+                        rWeather.Add(reader.GetString(2)); // unit
+
+                        Program.Weather.selCountry = rWeather[0];
+                        Program.Weather.selCountry.Replace("\"", "");
+                        if (rWeather[0] == "CA")
+                        {
+                            rWeather[0] = "Canada";
+                        }
+                        Program.Weather.selCity = rWeather[1];
+                        Program.Weather.selCity.Replace("\"", "");
+                        Program.Weather.selUnit = rWeather[2];
+                    }
+                    reader.Close();
+                }
+                returnWeather.Cancel();
+                myConn.Close();
+            }
+        } // WeatherChanges()
+        public void OnPostRemoveWeather(string City, string Country, string Unit)
+        {
+            using (SqlConnection myConn = new SqlConnection(Program.Fetch.cs))
+            {
+                if (Program.UserDetails.UserID != 0)
+                {
+                    SqlCommand removeWeather = new SqlCommand
+                    {
+                        Connection = myConn
+                    };
+                    myConn.Open();
+
+                    removeWeather.Parameters.AddWithValue("@UserID", Program.UserDetails.UserID);
+
+                    removeWeather.CommandText = ("[spRemoveWeather]");
+                    removeWeather.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var result = removeWeather.ExecuteScalar();
+
+                    myConn.Close();
+                }
+            }
+        } // OnPostRemoveWeather()
         public async Task OnPostNews(string Coun, string Articles, int Time)
         {
             display = "grid";
@@ -680,7 +759,7 @@ namespace Phramd.Pages
                     myConn.Open();
 
                     // Put in same order as the SP & Table (maybe change userId to last - since it's a FK ??)
-                    // INSERT DEFAULT VALUES OF LONDON, CANADA AND METRIC
+                    // INSERT DEFAULT VALUES OF canada, 10, 15
                     getNews.Parameters.AddWithValue("@userId", Program.UserDetails.UserID);
                     getNews.Parameters.AddWithValue("@country", selCoun);
                     getNews.Parameters.AddWithValue("@articles", numOfArticles);
@@ -696,6 +775,73 @@ namespace Phramd.Pages
             }
             // Refresh the settings page @ news pos on page
         } //OnPostNews()
+        public void NewsChanges(int UserID)
+        {
+            using (SqlConnection myConn = new SqlConnection(Program.Fetch.cs))
+            {
+                SqlCommand returnNews = new SqlCommand();
+                returnNews.Connection = myConn;
+                myConn.Open();
+
+                returnNews.Parameters.AddWithValue("@userId", Program.UserDetails.UserID);
+                returnNews.CommandText = ("[spReturnNews]");
+                returnNews.CommandType = System.Data.CommandType.StoredProcedure;
+                using (SqlDataReader reader = returnNews.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        rNews.Add(reader.GetString(0)); // country
+                        rNews.Add(reader.GetString(1)); // article amount
+                        rNews.Add(reader.GetString(2)); // time
+                        
+                        Program.News.selCoun = rNews[0];
+                        Program.News.selCoun.Replace("\"", "");
+                        if (Program.News.selCoun == "ca")
+                        {
+                            rNews[0] = "Canada";
+                        }
+                        if(Program.News.selCoun == "us")
+                        {
+                            rNews[0] = "United States";
+                        }
+                        Program.News.numOfArticles = rNews[1];
+                        int numArticle = Convert.ToInt32(rNews[1]);
+                        Program.News.selTime = rNews[2];
+                        Program.News.selTime.Replace("\"", "");
+                        if(Program.News.selTime == "15000")
+                        {
+                            rNews[2] = "15 Seconds";
+                        }
+                    }
+                    reader.Close();
+                }
+                returnNews.Cancel();
+                myConn.Close();
+            }
+        } // NewsChanges()
+        public void OnPostRemoveNews(string Coun, string Articles, int Time)
+        {
+            using (SqlConnection myConn = new SqlConnection(Program.Fetch.cs))
+            {
+                if (Program.UserDetails.UserID != 0)
+                {
+                    SqlCommand removeNews = new SqlCommand
+                    {
+                        Connection = myConn
+                    };
+                    myConn.Open();
+
+                    removeNews.Parameters.AddWithValue("@UserID", Program.UserDetails.UserID);
+
+                    removeNews.CommandText = ("[spRemoveNews]");
+                    removeNews.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var result = removeNews.ExecuteScalar();
+
+                    myConn.Close();
+                }
+            }
+        } //OnPostRemoveNews
         public void OnPostDTFormat(string ddDay, string ddDate, string ddMonth, string ddYear,
             string ddHours, string ddMinutes, string ddSeconds, string ddTime)
         {
@@ -708,7 +854,7 @@ namespace Phramd.Pages
             Program.DateFormats.selHour = ddHours;
             Program.DateFormats.selMin = ddMinutes;
             Program.DateFormats.selSec = ddSeconds;
-            Program.DateFormats.selTime = ddTime;
+            Program.DateFormats.selAP = ddTime;
 
             if (Program.UserDetails.UserID == 0) // not logged in
             {
@@ -744,7 +890,72 @@ namespace Phramd.Pages
                     myConn.Close();
                 }
             }
-        } //OnPostNews
+        } //OnPostDTFormat
+        public void DTChanges(int UserID)
+        {
+            using (SqlConnection myConn = new SqlConnection(Program.Fetch.cs))
+            {
+                SqlCommand returnDT = new SqlCommand();
+                returnDT.Connection = myConn;
+                myConn.Open();
+
+                returnDT.Parameters.AddWithValue("@userId", Program.UserDetails.UserID);
+                returnDT.CommandText = ("[spReturnDT]");
+                returnDT.CommandType = System.Data.CommandType.StoredProcedure;
+                using (SqlDataReader reader = returnDT.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                       
+                        rDT.Add(reader.GetString(0)); // day
+                        rDT.Add(reader.GetString(1)); // date
+                        rDT.Add(reader.GetString(2)); // month
+                        rDT.Add(reader.GetString(3)); // year
+                        rDT.Add(reader.GetString(4)); // hour
+                        rDT.Add(reader.GetString(5)); // minutes
+                        rDT.Add(reader.GetString(6)); // seconds
+                        rDT.Add(reader.GetString(7)); // time
+                        
+                        Program.DateFormats.selDay = rDT[0];
+                        Program.DateFormats.selDate = rDT[1];
+                        Program.DateFormats.selMonth = rDT[2];
+                        Program.DateFormats.selYear = rDT[3];
+                        Program.DateFormats.selHour = rDT[4];
+                        Program.DateFormats.selMin = rDT[5];
+                        Program.DateFormats.selSec = rDT[6];
+                        Program.DateFormats.selAP = rDT[7];
+
+                    }
+                    reader.Close();
+                }
+                returnDT.Cancel();
+                myConn.Close();
+            }
+        } // DTChanges()
+        public void OnPostRemoveDT(string ddDay, string ddDate, string ddMonth, string ddYear,
+            string ddHours, string ddMinutes, string ddSeconds, string ddTime)
+        {
+            using (SqlConnection myConn = new SqlConnection(Program.Fetch.cs))
+            {
+                if (Program.UserDetails.UserID != 0)
+                {
+                    SqlCommand removeDT = new SqlCommand
+                    {
+                        Connection = myConn
+                    };
+                    myConn.Open();
+
+                    removeDT.Parameters.AddWithValue("@UserID", Program.UserDetails.UserID);
+
+                    removeDT.CommandText = ("[spRemoveDT]");
+                    removeDT.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var result = removeDT.ExecuteScalar();
+
+                    myConn.Close();
+                }
+            }
+        }// OnPostRemoveDT
     } // Pagemodel
 } // namespace
 

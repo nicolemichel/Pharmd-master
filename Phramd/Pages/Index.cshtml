@@ -128,54 +128,151 @@
                 <hr>
                 <form method="post" asp-page-handler="DTFormat">
                     <p>Date</p>
-                    <select class="drop" name="ddDate" @Model.selDate>
-                        <option value="">Date</option>
-                        <option value="@Model.sDate">@Model.sDate</option> <!--Default-->
-                        <option value="@Model.date">@Model.date</option>
-                    </select>
-                    <select class="drop" name="ddMonth" @Model.selMonth>
-                        <option value="">Month</option>
-                        <option value="@Model.snMonth">@Model.snMonth</option>
-                        <option value="@Model.nMonth">@Model.nMonth</option>
-                        <option value="@Model.sMonth">@Model.sMonth</option>
-                        <option value="@Model.month">@Model.month</option> <!--Default-->
-                    </select>
-                    <select class="drop" name="ddDay" @Model.selDay>
-                        <option value="">Day</option>
-                        <option value="@Model.sDay">@Model.sDay</option>
-                        <option value="@Model.day">@Model.day</option> <!--Default-->
-                    </select>
-                    <select class="drop" name="ddYear" @Model.selYear>
-                        <option value="">Year</option>
-                        <option value="@Model.sYear">@Model.sYear</option>
-                        <option value="@Model.year">@Model.year</option> <!--Default-->
-                    </select>
+                    @if (@Program.DateFormats.selDate != null)
+                    {
+                        <select id="dropDate" class="drop" name="ddDate" value="@Model.selDate">
+                            <option value="@Program.DateFormats.selDate">@Program.DateFormats.selDate</option>
+                            <option value="">Date</option>
+                            <option value="@Model.sDate">@Model.sDate</option> <!--Default-->
+                            <option value="@Model.date">@Model.date</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <select id="dropDate" class="drop" name="ddDate" value="@Model.selDate">
+                            <option value="">Date</option>
+                            <option value="@Model.sDate">@Model.sDate</option> <!--Default-->
+                            <option value="@Model.date">@Model.date</option>
+                        </select>
+                    }
+                    @if (@Program.DateFormats.selMonth != null)
+                    {
+                        <select id="dropMonth" class="drop" name="ddMonth" value="@Model.selMonth">
+                            <option value="@Program.DateFormats.selMonth">@Program.DateFormats.selMonth</option>
+                            <option value="">Month</option>
+                            <option value="@Model.snMonth">@Model.snMonth</option>
+                            <option value="@Model.nMonth">@Model.nMonth</option>
+                            <option value="@Model.sMonth">@Model.sMonth</option>
+                            <option value="@Model.month">@Model.month</option> <!--Default-->
+                        </select>
+                    }
+                    else
+                    {
+                        <select id="dropMonth" class="drop" name="ddMonth" value="@Model.selMonth">
+                            <option value="">Month</option>
+                            <option value="@Model.snMonth">@Model.snMonth</option>
+                            <option value="@Model.nMonth">@Model.nMonth</option>
+                            <option value="@Model.sMonth">@Model.sMonth</option>
+                            <option value="@Model.month">@Model.month</option> <!--Default-->
+                        </select>
+                    }
+                    @if (@Program.DateFormats.selDay != null)
+                    {
+                        <select id="dropDay" class="drop" name="ddDay" value="@Model.selDay">
+                            <option value="@Program.DateFormats.selDay">@Program.DateFormats.selDay</option>
+                            <option value="">Day</option>
+                            <option value="@Model.sDay">@Model.sDay</option>
+                            <option value="@Model.day">@Model.day</option> <!--Default-->
+                        </select>
+                    }
+                    else
+                    {
+                        <select id="dropDay" class="drop" name="ddDay" value="@Model.selDay">
+                            <option value="">Day</option>
+                            <option value="@Model.sDay">@Model.sDay</option>
+                            <option value="@Model.day">@Model.day</option> <!--Default-->
+                        </select>
+                    }
+                    @if (@Program.DateFormats.selYear != null)
+                    {
+                        <select id="dropYear" class="drop" name="ddYear" value="@Model.selYear">
+                            <option value="@Program.DateFormats.selYear">@Program.DateFormats.selYear</option>
+                            <option value="">Year</option>
+                            <option value="@Model.sYear">@Model.sYear</option>
+                            <option value="@Model.year">@Model.year</option> <!--Default-->
+                        </select>
+                    }
+                    else
+                    {
+                        <select id="dropYear" class="drop" name="ddYear" value="@Model.selYear">
+                            <option value="">Year</option>
+                            <option value="@Model.sYear">@Model.sYear</option>
+                            <option value="@Model.year">@Model.year</option> <!--Default-->
+                        </select>
+                    }
                     <br />
                     <br />
                     <br />
                     <p>Time</p>
-                    <select class="drop" name="ddHours" @Model.selHour>
-                        <option value="">Hours</option>
-                        <option value="@Model.sHour">@Model.sHour (12hr)</option>
-                        <option id="zeroHour" value="@Model.hour">@Model.hour (012hr)</option> <!--Default-->
-                        <option value="@Model.military">@Model.military (24hr)</option>
-                    </select>
-                    <select class="drop" name="ddMinutes" @Model.selMin>
-                        <option value="">Minutes</option>
-                        <option value="@Model.minutes">@Model.minutes</option> <!--Default-->
-                    </select>
-                    <select class="drop" name="ddSeconds" @Model.selSec>
-                        <option value="">Seconds</option>
-                        <option value="@Model.seconds">@Model.seconds</option> <!--Default-->
-                    </select>
-                    <select class="drop" name="ddTime" @Model.selTime>
-                        <option value="">Time</option>
-                        <option value="@Model.sTime">@Model.sTime</option>
-                        <option value="@Model.time">@Model.time</option> <!--Default-->
-                    </select>
+                    @if (@Program.DateFormats.selHour != null)
+                    {
+                        <select id="dropHour" class="drop" name="ddHours" value="@Model.selHour">
+                            <option value="@Program.DateFormats.selHour">@Program.DateFormats.selHour</option>
+                            <option value="">Hour</option>
+                            <option value="@Model.sHour">@Model.sHour (12hr)</option>
+                            <option id="zeroHour" value="@Model.hour">@Model.hour (012hr)</option> <!--Default-->
+                            <option value="@Model.military">@Model.military (24hr)</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <select id="dropHour" class="drop" name="ddHours" value="@Model.selHour">
+                            <option value="">Hour</option>
+                            <option value="@Model.sHour">@Model.sHour (12hr)</option>
+                            <option id="zeroHour" value="@Model.hour">@Model.hour (012hr)</option> <!--Default-->
+                            <option value="@Model.military">@Model.military (24hr)</option>
+                        </select>
+                    }
+                    @if (@Program.DateFormats.selMin != null)
+                    {
+                        <select id="dropMin" class="drop" name="ddMinutes" value="@Model.selMin">
+                            <option value="@Program.DateFormats.selMin">@Program.DateFormats.selMin</option>
+                            <option value="">Minutes</option>
+                            <option value="@Model.minutes">@Model.minutes</option> <!--Default-->
+                        </select>
+                    }
+                    else
+                    {
+                        <select id="dropMin" class="drop" name="ddMinutes" value="@Model.selMin">
+                            <option value="">Minutes</option>
+                            <option value="@Model.minutes">@Model.minutes</option> <!--Default-->
+                        </select>
+                    }
+                    @if (@Program.DateFormats.selSec != null)
+                    {
+                        <select id="dropSec" class="drop" name="ddSeconds" value="@Model.selSec">
+                            <option value="@Program.DateFormats.selSec">@Program.DateFormats.selSec</option>
+                            <option value="">Seconds</option>
+                            <option value="@Model.seconds">@Model.seconds</option> <!--Default-->
+                        </select>
+                    }
+                    else
+                    {
+                        <select id="dropSec" class="drop" name="ddSeconds" value="@Model.selSec">
+                            <option value="">Seconds</option>
+                            <option value="@Model.seconds">@Model.seconds</option> <!--Default-->
+                        </select>
+                    }
+                    @if (@Program.DateFormats.selAP != null)
+                    {
+                        <select id="dropAP" class="drop" name="ddTime" value="@Model.selAP">
+                            <option value="@Program.DateFormats.selAP">@Program.DateFormats.selAP</option>
+                            <option value="">Time</option>
+                            <option value="@Model.sTime">@Model.sTime</option>
+                            <option value="@Model.time">@Model.time</option> <!--Default-->
+                        </select>
+                    }
+                    else
+                    {
+                        <select id="dropAP" class="drop" name="ddTime" value="@Model.selAP">
+                            <option value="">Time</option>
+                            <option value="@Model.sTime">@Model.sTime</option>
+                            <option value="@Model.time">@Model.time</option> <!--Default-->
+                        </select>
+                    }
                     <br />
-                    <button class="noRefresh" type="submit">Save Date and Time</button>
-                    <button id="noRefresh" class="removeButton" method="post" asp-page-handler="RemoveDT" type="submit">Remove</button>
+                    <button type="submit">Save Date and Time</button>
+                    <button onclick="ClearDT()" class="removeButton" method="post" asp-page-handler="RemoveDT" type="submit">Remove</button>
                     <br />
                     <br />
                 </form>
@@ -218,12 +315,26 @@
                 <h3>Weather</h3>
                 <hr>
                 <form method="post" asp-page-handler="Weather">
-                    <select class="drop" name="Country" value="@Model.selCountry">
-                        <option value="">Select A Country</option>
+                @if(@Program.Weather.selCountry != null)
+                {
+                    <select required class="drop" id="country" name="Country" value="@Model.selCountry">
+                        <option value="@Program.Weather.selCountry">@Program.Weather.selCountry</option>
+                        <option value="">Country</option>
                         <option value="CA">Canada</option> <!--Default-->
                     </select>
-                    <select required class="drop" name="City" value="@Model.selCity">
-                        <option value="">Select A City</option>
+                }
+                else
+                {
+                    <select required class="drop" id="country" name="Country" value="@Model.selCountry">
+                        <option value="">Country</option>
+                        <option value="CA">Canada</option> <!--Default-->
+                    </select>
+                }
+                @if(@Program.Weather.selCity != null)
+                {
+                    <select required class="drop" id="city" name="City" value="@Model.selCity">
+                        <option value="@Program.Weather.selCity">@Program.Weather.selCity</option>
+                        <option value="">City</option>
                         <option value="Toronto">Toronto</option>
                         <option value="Ottawa">Ottawa</option>
                         <option value="Montreal">Montreal</option>
@@ -238,41 +349,109 @@
                         <option value="Hamilton">Hamilton</option>
                         <option value="Guelph">Guelph</option>
                     </select>
-                    <select required class="drop" name="Unit" value="@Model.selUnit">
-                        <option value="">Select A Unit of Measurement</option>
+                }
+                else
+                {
+                    <select required class="drop" id="city" name="City" value="@Model.selCity">
+                        <option value="">City</option>
+                        <option value="Toronto">Toronto</option>
+                        <option value="Ottawa">Ottawa</option>
+                        <option value="Montreal">Montreal</option>
+                        <option value="Gatineau">Gatineau</option>
+                        <option value="Quebec">Quebec City</option>
+                        <option value="London">London</option> <!--Default-->
+                        <option value="Sarnia">Sarnia</option>
+                        <option value="Windsor">Windsor</option>
+                        <option value="Kitchener">Kitchener</option>
+                        <option value="Kingston">Kingston</option>
+                        <option value="Oshawa">Oshawa</option>
+                        <option value="Hamilton">Hamilton</option>
+                        <option value="Guelph">Guelph</option>
+                    </select>
+                }
+                @if(@Program.Weather.selUnit != null)
+                {
+                    <select required class="drop" id="unit" name="Unit" value="@Model.selUnit">
+                        <option value="@Program.Weather.selUnit">@Program.Weather.selUnit</option>
+                        <option value="">Unit of Measurement</option>
                         <option value="Metric">Metric</option> <!--Default-->
                         <option value="Imperial">Imperial</option>
                         <option value="Kelvin">Kelvin</option>
                     </select>
+                }
+                else
+                {
+                    <select required class="drop" id="unit" name="Unit" value="@Model.selUnit">
+                        <option value="">Unit of Measurement</option>
+                        <option value="Metric">Metric</option> <!--Default-->
+                        <option value="Imperial">Imperial</option>
+                        <option value="Kelvin">Kelvin</option>
+                    </select>
+                }
                     <br />
-                    <button class="noRefresh" type="submit" >Save Weather</button>
-                    <button id="noRefresh" class="removeButton" method="post" asp-page-handler="RemoveWeather" type="submit">Remove</button>
+                    <button type="submit" >Save Weather</button>
+                    <button onclick="ClearWeather()" class="removeButton" method="post" asp-page-handler="RemoveWeather" type="submit">Remove</button>
                 </form>
                 <br />
                 <br />
                 <h3>News</h3>
                 <hr>
                 <form method="post" asp-page-handler="News">
-                    <select required class="drop" name="Coun" @Model.selCoun>
-                        <option value="">Select A Country</option>
-                        <option value="ca">Canada</option>
-                        <option value="us">United States</option>
-                    </select>
-                    <select required class="drop" name="Articles" @Model.numOfArticles>
-                        <option value="">Amount of Articles Wanted</option>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                    </select>
-                    <select required class="drop" name="Time">
-                        <option value="">Time To Read Headlines</option>
-                        <option value="10000">10 seconds</option>
-                        <option value="15000">15 seconds</option>
-                        <option value="20000">20 seconds</option>
-                    </select>
+                    @if (@Program.News.selCoun != null)
+                    {
+                        <select required class="drop" id="coun" name="Coun" value="@Model.selCoun">
+                            <option value="@Program.News.selCoun">@Program.News.selCoun</option>
+                            <option value="">Country</option>
+                            <option value="ca">Canada</option> <!--Default-->
+                            <option value="us">United States</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <select required class="drop" id="coun" name="Coun" value="@Model.selCoun">
+                            <option value="">Country</option>
+                            <option value="ca">Canada</option>
+                            <option value="us">United States</option>
+                        </select>
+                    }
+                    @if (@Program.News.numOfArticles != null)
+                    {
+                        <select required class="drop" id="article" name="Articles" value="@Model.numOfArticles">
+                            <option value="@Program.News.numOfArticles">@Program.News.numOfArticles</option>
+                            <option value="">Articles</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <select required class="drop" id="article" name="Articles" value="@Model.numOfArticles">
+                            <option value="">Articles</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                        </select>
+                    }
+                    @if(@Program.News.selTime != null)
+                    {
+                        <select required class="drop" id="dropTime" name="Time" value="@Model.selTime">
+                            <option value="@Program.News.selTime">@Program.News.selTime</option>
+                            <option value="">Time To Read</option>
+                            <option value="15000">15 Seconds</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <select required class="drop" id="dropTime" name="Time" value="@Model.selTime">
+                            <option value="">Time To Read</option>
+                            <option value="15000">15 Seconds</option>
+                        </select>
+                    }
+                    
                     <br />
-                    <button class="noRefresh" type="submit">Save News</button>
-                    <button id="noRefresh" class="removeButton" method="post" asp-page-handler="RemoveNews" type="submit">Remove</button>
+                    <button type="submit">Save News</button>
+                    <button onclick="ClearNews()" class="removeButton" method="post" asp-page-handler="RemoveNews" type="submit">Remove</button>
                 </form>
                 <br />
                 <br />
@@ -291,14 +470,14 @@
                         <option value="Portrait">Portrait</option>
                     </select>
                     <br />
-                    <button class="noRefresh" type="submit">Save Screen Settings</button>
+                    <button  type="submit">Save Screen Settings</button>
                 </form>
                 <br />
                 <br />
                 <!--MAKE A PARCIAL?????-->
                 <h3>Screen Layout</h3>
                 <hr>
-                <div id="noRefresh" class="resize-container">
+                <div  class="resize-container">
                     <div id="today" class="resize-drag d">
                         <div id="dateGrid">
                             <p id="date">@Program.DateFormats.selDate&nbsp;</p>
@@ -312,7 +491,7 @@
                             <p id="hour">@Program.DateFormats.selHour:</p>
                             <p id="minute">@Program.DateFormats.selMin</p>
                             <p id="second">:@Program.DateFormats.selSec</p>
-                            <p id="time"> &nbsp; @Program.DateFormats.selTime</p>
+                            <p id="time"> &nbsp; @Program.DateFormats.selAP</p>
                         </div>
                     </div>
                     <div id="photo" class="resize-drag p">
@@ -340,9 +519,17 @@
                         </div>
                     </div>
                     <div id="news" class="resize-drag n">
-                        <div id="newsGrid" style="display: @Model.display" onload="Next(@Model.headlineList, @Model.publishedList)">
-                            <p id="headline">@Model.headline</p>
-                            <p id="published">@Model.published</p>
+                        <div class="newsGrid">
+                            @if (Model.headlineList != null)
+                            {
+                                @for (int i = 0; i < Model.headlineList.Count; i++)
+                                {
+                                    <div class="newsSlider">
+                                        <p id="headline">@Model.headlines[i]</p>
+                                        <p id="published">@Model.publishDates[i]</p>
+                                    </div>
+                                }
+                            }
                         </div>
                     </div>
                 </div>

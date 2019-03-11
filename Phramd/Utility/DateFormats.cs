@@ -32,7 +32,7 @@ namespace Phramd.Utility
 
         // TIME
         // time options
-        public string selTime { get; set; }
+        public string selAP { get; set; }
         public string sTime = DateTime.Now.ToString("%t"); // A/P
         public string time = DateTime.Now.ToString("tt"); // normal am/pm
         // hour options
